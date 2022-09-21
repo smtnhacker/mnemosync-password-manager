@@ -1,0 +1,9 @@
+li {
+    list-style: none;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

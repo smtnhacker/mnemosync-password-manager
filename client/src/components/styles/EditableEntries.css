@@ -1,0 +1,15 @@
+p, label {
+    margin: 2px;
+    font-size: 20px;
+    text-align: left;
+}
+
+.view-container button:hover, .edit-container button:hover {
+    cursor: pointer;
+    border-color: #01BAEF;
+}
+
+.view-container, .edit-container {
+    margin: 16px;
+    max-width: 500px;
+}

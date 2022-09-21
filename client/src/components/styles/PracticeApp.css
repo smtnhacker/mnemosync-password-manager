@@ -1,0 +1,12 @@
+.practice-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.practice-container h3 {
+    margin: 5px;
+}
+
+#input-password {
+    width: 40ch;
+}

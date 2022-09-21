@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+    font-size: 24px;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+.upper-nav, .lower-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.upper-nav {
+    justify-content: space-between;
+    background-color: rgba(100,100,100,0.2);
+    padding: 10px 15px;
+}
+
+.lower-nav {
+    justify-content: center;
+    padding: 5px 0px;
+}
+
+.lower-nav ul {
+    display: flex;
+    flex-direction: row;
+    margin: 3px 0px;
+}

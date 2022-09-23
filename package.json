@@ -1,7 +1,7 @@
 {
   "name": "mnemosync",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Password manager that uses spaced repetition to help users remember their passwords even after D-Day.",
   "main": "index.js",
   "directories": {
     "doc": "doc"
@@ -11,8 +11,8 @@
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["password", "manager", "memory", "srs"],
+  "author": "Ron Mikhael Surara",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^7.3.0"

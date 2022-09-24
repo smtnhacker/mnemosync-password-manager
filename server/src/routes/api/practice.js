@@ -66,9 +66,10 @@ router.put('/finish-card', async (req, res, next) => {
             await db.query(query);
         }
         else {
+            console.log("Cookie:", req.headers.cookie)
             const newEntryDetail = await axios.post('http://localhost:8000/api/entrydetail/new');
             console.log('new detail', newEntryDetail.data);
-            await axios.put('http://localhost:8000/api/entry/add_detail', {
+            await axios.put('http://localhost:8000/api/entry_open/add_detail', {
                 entry_detail_id: newEntryDetail.data.entryDetailID,
                 entry_id: entry_id
             });

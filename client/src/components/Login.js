@@ -36,7 +36,7 @@ function Login({ loginSuccessRedirect }) {
                 password: password
             }, {withCredentials: true});
             
-            alert(res.data.msg);
+            console.dir(res.data.msg);
             getUser();
             auth.setKey(password);
             navigate(loginSuccessRedirect);

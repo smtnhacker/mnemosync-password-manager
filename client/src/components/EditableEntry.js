@@ -46,7 +46,18 @@ function EditableEntry({ onDelete, entry_id, sitename, username, password, salt,
 
     const handleSubmit = e => {
         e.preventDefault();
-        const { encrypted, authTag } = encrypt(e.target.password.value, auth.key, salt, iv)
+
+        if (!e.target.password.value &&
+            !e.target.sitename.value &&
+            !e.target.username.value) {
+                console.log("Noting changed...");
+                return;
+            }
+
+        const { encrypted, authTag } = e.target.password.value ? 
+                                        encrypt(e.target.password.value, auth.key, salt, iv) : 
+                                        { encrypted: '', authTag: null }
+
         axios.put('http://localhost:8000/api/entry/update_detail', {
             entry_id: entry_id,
             sitename: e.target.sitename.value,
@@ -54,7 +65,7 @@ function EditableEntry({ onDelete, entry_id, sitename, username, password, salt,
             password: encrypted,
             authTag: authTag,
             saltID: saltID
-        });
+        }, { withCredentials: true });
         setMode(0);
         // should also update the currently shown entries
     }

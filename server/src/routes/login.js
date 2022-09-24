@@ -19,12 +19,13 @@ router.post('/', async (req, res, next) => {
             return res.status(400).json({ msg: "Invalid username or password" })
         }
         const {user_id: userID, passhash: password, salt_id: saltID} = (await db.query(queryUser))[0];
-        const salt = await db.getSalt(saltID);
         const inputPass = req.body.password;
         const realPass = password;
         security.checkPassword(inputPass, realPass, (result) => {
             if (result) {
                 req.session.userID = userID;
+                req.session.save();
+                console.log("userID:", req.session.userID)
                 return res.json({ 
                     msg: `Successfully login as user ${userID}`,
                     userID: userID

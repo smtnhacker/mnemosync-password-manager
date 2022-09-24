@@ -30,7 +30,8 @@ const SignUp = ({ signupSuccessRedirect }) => {
     );
     console.log(res);
     if (res.status === 400) {
-      alert(res.data.msg);
+      alert("Successfully registered!")
+      console.dir(res.data.msg);
     } else {
       alert(res.data);
       navigate(signupSuccessRedirect);
@@ -78,7 +79,7 @@ const SignUp = ({ signupSuccessRedirect }) => {
               type="password"
               id="passInput"
               name="password"
-              pattern={password}
+              pattern={Array.from(password).reduce((total, c) => {return total + ("@$!%*?&".includes(c) ? `\\${c}` : c)}, '')}
               title="Please make sure it's the same with the password above."
               required
             />

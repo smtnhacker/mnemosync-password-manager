@@ -155,7 +155,7 @@ router.put('/update_detail', async (req, res, next) => {
     try {
         const { entry_id, sitename, username, password, authTag, saltID } = req.body;
 
-        if (!entry_id || !saltID || !authTag) {
+        if (!entry_id) {
             return res.status(400).json({ msg: "Please provide complete information" });
         }
 
@@ -179,13 +179,16 @@ router.put('/update_detail', async (req, res, next) => {
             await client.query('BEGIN');
 
             // update salts authTag
-            await client.query(`
-                UPDATE salts
-                SET authtag=$1
-                WHERE salt_id=$2
-            `, [authTag, saltID]);
+            // if passhash is changed
+            if (authTag) {
+                await client.query(`
+                    UPDATE salts
+                    SET authtag=$1
+                    WHERE salt_id=$2
+                `, [authTag, saltID]);
+            }
 
-            // update actual passhash
+            // update actual passhash if changed
             await client.query(`
                 UPDATE entries
                 SET sitename=$1, username=$2, passhash=$3, entry_detail_id=NULL

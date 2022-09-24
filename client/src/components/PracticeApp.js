@@ -12,7 +12,7 @@ import PrimaryButton from './atoms/PrimaryButton'
 const updateEntry = async (entry) => {
     await axios.put(`http://localhost:8000/api/practice/finish-card/`, {
         ...entry
-    });
+    }, { withCredentials: true });
 }
 
 function PracticeApp() {

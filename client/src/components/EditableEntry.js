@@ -51,6 +51,7 @@ function EditableEntry({ onDelete, entry_id, sitename, username, password, salt,
             !e.target.sitename.value &&
             !e.target.username.value) {
                 console.log("Noting changed...");
+                setMode(0);
                 return;
             }
 
@@ -83,6 +84,7 @@ function EditableEntry({ onDelete, entry_id, sitename, username, password, salt,
 
         } catch (err) {
             console.log(err)
+            setMode(0);
         }
 
     }

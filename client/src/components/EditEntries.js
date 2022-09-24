@@ -42,7 +42,15 @@ function EditEntries({ onNew }) {
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/entry/list', {withCredentials: true})
-            .then(res => setEntries(res.data));
+            .then(res => {
+                const processed = res.data.map(entry => ({ ...entry, password: decrypt(
+                    entry.passhash, 
+                    auth.key,
+                    entry.salt,
+                    entry.iv,
+                    entry.authtag)}))
+                setEntries(processed)
+            });
     }, [hasDelete]);
 
     useEffect(() => console.log('Got entries:', entries), [entries])
@@ -50,6 +58,21 @@ function EditEntries({ onNew }) {
     const handleDelete = entry_id => {
         setHasDelete(entry_id)
     }
+
+    const handleEntryChange = (entry_id, newEntry) => {
+        setEntries(prev => {
+            return prev.map(entry => {
+                if (entry.entry_id === entry_id) {
+                    console.log("New Entry")
+                    console.dir({...entry, ...newEntry})
+                    return { ...entry, ...newEntry }
+                } else {
+                    return entry;
+                }
+            })
+        })
+    }
+    console.dir(entries)
 
     if(entries === '') return <div>Loading...</div>
 
@@ -66,7 +89,7 @@ function EditEntries({ onNew }) {
                                 entry_id={entry.entry_id}
                                 sitename={entry.sitename}
                                 username={entry.username}
-                                password={decrypt(
+                                password={entry.password ?? decrypt(
                                             entry.passhash, 
                                             auth.key,
                                             entry.salt,
@@ -75,6 +98,7 @@ function EditEntries({ onNew }) {
                                 salt={entry.salt}
                                 iv={entry.iv}
                                 saltID={entry.salt_id}
+                                onUpdate={(newEntry) => handleEntryChange(entry.entry_id, newEntry)}
                             />
                             <hr />
                         </React.Fragment>

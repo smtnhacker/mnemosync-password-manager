@@ -29,7 +29,7 @@ const TinySecondaryButton = props => {
     )
 }
 
-function EditableEntry({ onDelete, entry_id, sitename, username, password, salt, iv, saltID }) {
+function EditableEntry({ onDelete, entry_id, sitename, username, password, salt, iv, saltID, onUpdate }) {
     const [mode, setMode] = useState(0);
     const auth = useContext(authContext)
 
@@ -54,20 +54,37 @@ function EditableEntry({ onDelete, entry_id, sitename, username, password, salt,
                 return;
             }
 
-        const { encrypted, authTag } = e.target.password.value ? 
-                                        encrypt(e.target.password.value, auth.key, salt, iv) : 
-                                        { encrypted: '', authTag: null }
+        try {
+            const { encrypted, authTag } = e.target.password.value ? 
+                                            encrypt(e.target.password.value, auth.key, salt, iv) : 
+                                            { encrypted: '', authTag: null }
+            
+            const newEntry = {}
+            if (e.target.sitename.value) newEntry.sitename = e.target.sitename.value;
+            if (e.target.username.value) newEntry.username = e.target.username.value;
+            if (e.target.password.value) {
+                newEntry.password = e.target.password.value;
+                newEntry.authtag = authTag;
+                newEntry.passhash = encrypted;
+            }
+            
+            axios.put('http://localhost:8000/api/entry/update_detail', {
+                entry_id: entry_id,
+                sitename: e.target.sitename.value,
+                username: e.target.username.value,
+                password: encrypted,
+                authTag: authTag,
+                saltID: saltID
+            }, { withCredentials: true });
+    
+            setMode(0);
+            onUpdate(newEntry)
+            // should also update the currently shown entries
 
-        axios.put('http://localhost:8000/api/entry/update_detail', {
-            entry_id: entry_id,
-            sitename: e.target.sitename.value,
-            username: e.target.username.value,
-            password: encrypted,
-            authTag: authTag,
-            saltID: saltID
-        }, { withCredentials: true });
-        setMode(0);
-        // should also update the currently shown entries
+        } catch (err) {
+            console.log(err)
+        }
+
     }
 
     if(mode === 0) {

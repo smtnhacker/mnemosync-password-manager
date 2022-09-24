@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { encrypt } from "../util/security"
 import authContext from "../util/authContext";
+import { PATTERN, PATTERN_TITLE } from "../constants";
 
 import TextInput from "./atoms/TextInput";
 import PrimaryButton from "./atoms/PrimaryButton";
@@ -59,15 +60,33 @@ function AddEntries() {
                 <h3>Add Entry</h3>
                 <div className="form-entry">
                     <label hidden>Site Name: </label>
-                    <TextInput type="text" id="sitename" name="sitename" placeholder="Site" />
+                    <TextInput 
+                        type="text" 
+                        id="sitename" 
+                        name="sitename" 
+                        placeholder="Site"
+                        required
+                    />
                 </div>
                 <div className="form-entry">
                     <label hidden>Username: </label>
-                    <TextInput type="text" id="username" name="username" placeholder="Username" />
+                    <TextInput 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Username" 
+                        required
+                    />
                 </div>
                 <div className="form-entry">
                     <label hidden>Password: </label>
-                    <TextInput type="password" id="password" name="password" placeholder="Password" />
+                    <TextInput 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Password" 
+                        required
+                    />
                 </div>
                 <PrimaryButton type="submit">Create</PrimaryButton>
                 <SecondaryButton onClick={handleCancel}>Cancel</SecondaryButton>

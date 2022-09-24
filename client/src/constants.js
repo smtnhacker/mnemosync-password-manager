@@ -5,4 +5,7 @@ const THEME = {
     SECONDARY_DARKER: "#111111"
 }
 
-export { THEME };
+const PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).+"
+const PATTERN_TITLE = "The password must contain at least a lowercase letter, uppercase letter, a digit and a special character"
+
+export { THEME, PATTERN, PATTERN_TITLE };

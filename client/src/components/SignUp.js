@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import { PATTERN, PATTERN_TITLE } from "../constants";
+
 import Card from "./atoms/Card";
 import FormGroup from "./atoms/FormGroup";
 import Label from "./atoms/Label";
@@ -63,6 +65,10 @@ const SignUp = ({ signupSuccessRedirect }) => {
               name="password"
               value={password}
               required
+              minLength={8}
+              maxLength={40}
+              pattern={PATTERN}
+              title={PATTERN_TITLE}
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormGroup>

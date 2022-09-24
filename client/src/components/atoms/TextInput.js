@@ -15,6 +15,10 @@ const Wrapper = styled.input`
     &:focus {
         outline: solid 1px ${THEME.PRIMARY};
     }
+
+    &:invalid:required {
+        outline: solid 1px red;
+    }
 `
 
 const TextInput = props => {

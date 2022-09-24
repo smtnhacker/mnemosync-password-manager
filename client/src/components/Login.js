@@ -64,6 +64,7 @@ function Login({ loginSuccessRedirect }) {
                                 id="userInput" 
                                 name="username"
                                 value={username}
+                                required
                                 onChange={(e) => setUsername(e.target.value)}    
                             />
                         </FormGroup>
@@ -74,6 +75,7 @@ function Login({ loginSuccessRedirect }) {
                                 id="passInput" 
                                 name="password"
                                 value={password}
+                                required
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </FormGroup>

@@ -32,8 +32,9 @@ router.put('/update', async (req, res, next) => {
     //validate that entryDetailID exists
 
     try {
-        throw "Unimplemented";
-        return res.json(newBody);
+        return res.status(501).end();
+        // throw "Unimplemented";
+        // return res.json(newBody);
     } catch(error) {
         return next(error);
     }

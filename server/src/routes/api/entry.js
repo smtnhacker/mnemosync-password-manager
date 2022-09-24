@@ -3,7 +3,6 @@ const { v4: uuidv4 } = require('uuid')
 const { pool } = require('../../util/db')
 
 const db = require('../../util/db')
-const security = require('../../util/security')
 
 const router = express.Router()
 

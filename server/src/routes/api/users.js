@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid')
 
 const db = require('../../util/db')
 const security = require('../../util/security')
+const { reqAuthenticate } = require('../../middleware/auth')
 
 const router = express.Router()
 
@@ -66,7 +67,7 @@ router.post('/new', async (req, res, next) => {
 
 })
 
-router.put('/update', async (req, res, next) => {
+router.put('/update', reqAuthenticate, async (req, res, next) => {
 
     // validate if user exists
     // validate if the data is valid
@@ -95,7 +96,7 @@ router.put('/update', async (req, res, next) => {
 
 })
 
-router.delete('/delete', async (req, res, next) => {
+router.delete('/delete', reqAuthenticate, async (req, res, next) => {
 
     // validate if user exists
 

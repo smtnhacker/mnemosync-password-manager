@@ -15,7 +15,7 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [X] ~~Use (or remove) the handshake~~ _Just use HTTPS_
 
-- [ ] Perform bare minimum input validations
+- [X] Perform bare minimum input validations
 
 - [ ] Make the UI responsive
 

@@ -20,6 +20,8 @@
     "connect-pg-simple": "^7.0.0",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-session": "^1.17.3",

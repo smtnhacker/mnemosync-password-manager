@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "driver": "pg",
+        "user": "postgres",
+        "password": "RazePowerBestGirl",
+        "host": "localhost",
+        "database": "mnemosync",
+        "port": "5432"
+    }
+}

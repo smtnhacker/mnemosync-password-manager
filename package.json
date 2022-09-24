@@ -9,7 +9,8 @@
   "scripts": {
     "server": "npm run dev --prefix server",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "postinstall": "(cd client && npm install) && (cd server && npm install)"
   },
   "keywords": ["password", "manager", "memory", "srs"],
   "author": "Ron Mikhael Surara",

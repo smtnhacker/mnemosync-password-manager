@@ -11,7 +11,7 @@ This was made for a PERN workshop, at work. This is still far from working, but 
 
 Here are some pretty _urgent_ to-do's that I still plan to work on (before putting the project back to the closet). Yeah, this thing is in its very early phases.
 
-- [/] Encrypt the passwords client-side
+- [X] Encrypt the passwords client-side
 
 - [X] ~~Use (or remove) the handshake~~ _Just use HTTPS_
 
@@ -19,7 +19,7 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [ ] Make the UI responsive
 
-- [/] Actually add the SRS algorithm
+- [X] Actually add the SRS algorithm
 
 - [ ] Add some tests (maybe?)
 

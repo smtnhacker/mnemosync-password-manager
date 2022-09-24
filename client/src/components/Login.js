@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import userContext from '../util/userContext';
+import authContext from '../util/authContext';
 
 import Card from './atoms/Card'
 import TextInput from './atoms/TextInput';
@@ -18,6 +19,7 @@ function Login({ loginSuccessRedirect }) {
     
     const navigate = useNavigate();
     const user = useContext(userContext);
+    const auth = useContext(authContext);
 
     useEffect(() => {
         if(user.userID) {
@@ -36,6 +38,7 @@ function Login({ loginSuccessRedirect }) {
             
             alert(res.data.msg);
             getUser();
+            auth.setKey(password);
             navigate(loginSuccessRedirect);
         } catch (err) {
             if (err.response) {

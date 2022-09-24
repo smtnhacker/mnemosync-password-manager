@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 
 import { encrypt  } from '../util/security';
+import authContext from '../util/authContext';
 
 import './styles/EditableEntries.css';
 import TextInput from './atoms/TextInput';
@@ -28,8 +29,9 @@ const TinySecondaryButton = props => {
     )
 }
 
-function EditableEntry({ onDelete, entry_id, sitename, username, password }) {
+function EditableEntry({ onDelete, entry_id, sitename, username, password, salt, iv, saltID }) {
     const [mode, setMode] = useState(0);
+    const auth = useContext(authContext)
 
     const handleEdit = e => {
         console.log('Clicked edit!')
@@ -44,11 +46,14 @@ function EditableEntry({ onDelete, entry_id, sitename, username, password }) {
 
     const handleSubmit = e => {
         e.preventDefault();
+        const { encrypted, authTag } = encrypt(e.target.password.value, auth.key, salt, iv)
         axios.put('http://localhost:8000/api/entry/update_detail', {
             entry_id: entry_id,
             sitename: e.target.sitename.value,
             username: e.target.username.value,
-            password: encrypt(e.target.password.value)
+            password: encrypted,
+            authTag: authTag,
+            saltID: saltID
         });
         setMode(0);
         // should also update the currently shown entries

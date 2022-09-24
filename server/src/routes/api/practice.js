@@ -12,9 +12,14 @@ router.get('/start-practice', async (req, res, next) => {
     try {
         // include the salt in the query
         const query = {
-            text: `SELECT * FROM entries LEFT OUTER JOIN entry_detail 
-            ON entries.entry_detail_id = entry_detail.entry_detail_id
-            WHERE user_id = $1 AND (entries.entry_detail_id IS NULL OR due <= $2)`,
+            text: `
+                SELECT * 
+                FROM entries 
+                LEFT OUTER JOIN entry_detail 
+                ON entries.entry_detail_id = entry_detail.entry_detail_id
+                JOIN salts
+                ON salts.salt_id = entries.salt_id
+                WHERE user_id = $1 AND (entries.entry_detail_id IS NULL OR due <= $2)`,
             values: [req.session.userID, curDate]
         };
         const entries = await db.query(query);
@@ -30,9 +35,14 @@ router.get('/start-practice/:date', async (req, res, next) => {
     try {
         // include the salt in the query
         const query = {
-            text: `SELECT * FROM entries LEFT OUTER JOIN entry_detail 
-            ON entries.entry_detail_id = entry_detail.entry_detail_id
-            WHERE user_id = $1 AND (entries.entry_detail_id IS NULL OR due <= $2)`,
+            text: `
+                SELECT * 
+                FROM entries 
+                LEFT OUTER JOIN entry_detail 
+                ON entries.entry_detail_id = entry_detail.entry_detail_id
+                JOIN salts
+                ON salts.salt_id = entries.salt_id
+                WHERE user_id = $1 AND (entries.entry_detail_id IS NULL OR due <= $2)`,
             values: [req.session.userID, req.params.date]
         };
         const entries = await db.query(query);

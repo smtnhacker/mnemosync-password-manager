@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 
 import { decrypt } from '../util/security'
+import authContext from '../util/authContext'
 
 import './styles/PracticeApp.css'
 import TextInput from './atoms/TextInput'
@@ -17,10 +18,11 @@ const updateEntry = async (entry) => {
 function PracticeApp() {
     const [entries, setEntries] = useState('');
     const [retries, setRetries] = useState(2);
+    const auth = useContext(authContext);
 
     const processEntries = entry => {
         // also get the password
-        const password = decrypt(entry.passhash);
+        const password = decrypt(entry.passhash, auth.key, entry.salt, entry.iv, entry.authtag);
         if(entry.entry_detail_id) {
             return {...entry, password: password, left: 1};
         }
@@ -96,7 +98,7 @@ function PracticeApp() {
             <form onSubmit={handleSubmit}>
                 <FormGroup>
                     <label hidden>Password: </label>
-                    <TextInput class="input-password" type="password" name="password" placeholder="Password" />
+                    <TextInput className="input-password" type="password" name="password" placeholder="Password" />
                 </FormGroup>
                 <PrimaryButton 
                     fontSize="0.8em" 

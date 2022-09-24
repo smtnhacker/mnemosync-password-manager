@@ -1,8 +1,9 @@
 import axios from 'axios'
 import styled from "styled-components"
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import { decrypt } from '../util/security'
+import authContext from '../util/authContext'
 
 import { THEME } from '../constants'
 import EditableEntry from './EditableEntry'
@@ -37,6 +38,7 @@ const Button = styled.button`
 function EditEntries({ onNew }) {
     const [entries, setEntries] = useState('');
     const [hasDelete, setHasDelete] = useState(false);
+    const auth = useContext(authContext);
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/entry/list', {withCredentials: true})
@@ -58,16 +60,24 @@ function EditEntries({ onNew }) {
                 entries.length > 0?
                 entries.map(entry => {
                     return (
-                        <>
+                        <React.Fragment key={entry.entry_id}>
                             <EditableEntry
                                 onDelete={handleDelete}
                                 entry_id={entry.entry_id}
                                 sitename={entry.sitename}
                                 username={entry.username}
-                                password={decrypt(entry.passhash)}
+                                password={decrypt(
+                                            entry.passhash, 
+                                            auth.key,
+                                            entry.salt,
+                                            entry.iv,
+                                            entry.authtag)}
+                                salt={entry.salt}
+                                iv={entry.iv}
+                                saltID={entry.salt_id}
                             />
                             <hr />
-                        </>
+                        </React.Fragment>
                     )
                 }) : 
                 "There are no passwords yet. You can create some by pressing the + button at the right."

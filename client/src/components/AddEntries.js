@@ -1,7 +1,9 @@
 import axios from "axios";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { encrypt } from "../util/security"
+import authContext from "../util/authContext";
 
 import TextInput from "./atoms/TextInput";
 import PrimaryButton from "./atoms/PrimaryButton";
@@ -9,13 +11,15 @@ import SecondaryButton from "./atoms/SecondaryButton";
 
 function AddEntries() {
     const navigate = useNavigate()
+    const auth = useContext(authContext)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const sitename = e.target.sitename.value;
         const username = e.target.username.value;
         const plainPassword = e.target.password.value;
-        const password = encrypt(plainPassword);
+        const { encrypted, authTag, iv, salt } = encrypt(plainPassword, auth.key);
+        const password = encrypted; 
         
         // validate input
         
@@ -23,19 +27,25 @@ function AddEntries() {
             const res = await axios.post('http://localhost:8000/api/entry/new', {
                 sitename: sitename,
                 username: username,
-                password: password
+                password: password,
+                authTag: authTag,
+                iv: iv,
+                salt: salt
             }, { withCredentials: true });
 
+            console.dir(res.data);
             if (res.statusText === 'OK') {
-                const newEntry = await res.data
-                alert(`Created entry ${JSON.stringify(newEntry)}`)
+                alert(`Created entry`);
+                e.target.reset();
+            } else {
+                alert('Somethiong went wrong');
             }
+
         } catch(error) {
             alert('Something went wrong. Entry not made :(')
-            console.log(error);
+            console.dir(error.response.data);
         }
 
-        e.target.reset();
     }
 
     const handleCancel = e => {

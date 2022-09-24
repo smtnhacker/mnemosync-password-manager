@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react';
 
 import './App.css';
 import userContext from './util/userContext';
+import authContext from './util/authContext';
 import useUser from './hooks/useUser';
-import useHandshake from './hooks/useHandshake';
+// import useHandshake from './hooks/useHandshake';
 import NavBar from './components/NavBar';
 
 function App() {
   const [userID, getUser, deleteUser] = useUser();
+  const [key, setKey] = useState("sikretongmalupethshshshs")
   // const channelKey = useHandshake([])
 
   useEffect(() => {
@@ -22,10 +24,16 @@ function App() {
   const userState = {
     userID: userID,
     getUser: getUser,
-    deleteUser: deleteUser
+    deleteUser: deleteUser,
   };
 
+  const authState = {
+    key: key,
+    setKey: setKey
+  }
+
   return (
+    <authContext.Provider value={authState}>
       <userContext.Provider value={userState}>
         <div className="App">
           <NavBar logged={userID ? true : false} />
@@ -34,6 +42,7 @@ function App() {
           </header>
         </div>
       </userContext.Provider>
+    </authContext.Provider>
   );
 }
 

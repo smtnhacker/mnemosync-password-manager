@@ -33,7 +33,7 @@ const Landing = () => {
                 <h1 style={{ margin: "8px", fontSize: "3em" }}>mnemosync</h1>
                 <subtitle>Download <span style={{ color: THEME.PRIMARY }}>passwords</span> into your brain.</subtitle>
             </div>
-            <div class={{ display: "flex" }}>
+            <div className={{ display: "flex" }}>
                 {
                     !user.userID ? 
                     <>

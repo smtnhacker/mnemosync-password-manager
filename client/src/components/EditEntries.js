@@ -36,21 +36,36 @@ const Button = styled.button`
 `
 
 function EditEntries({ onNew }) {
-    const [entries, setEntries] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [entries, setEntries] = useState([]);
     const [hasDelete, setHasDelete] = useState(false);
     const auth = useContext(authContext);
 
     useEffect(() => {
+        setLoading(true);
         axios.get('http://localhost:8000/api/entry/list', {withCredentials: true})
             .then(res => {
-                const processed = res.data.map(entry => ({ ...entry, password: decrypt(
-                    entry.passhash, 
-                    auth.key,
-                    entry.salt,
-                    entry.iv,
-                    entry.authtag)}))
-                setEntries(processed)
-            });
+                // res.data.forEach((entry) => { 
+                //     const curEntry = {
+                //         ...entry, 
+                //         password: decrypt(
+                //             entry.passhash, 
+                //             auth.key,
+                //             entry.salt,
+                //             entry.iv,
+                //             entry.authtag)
+                //         }
+                //     setEntries(prev => [...prev, curEntry])
+                // })
+                setEntries(res.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.log(err);
+                setError(true);
+                setLoading(false);
+            })
     }, [hasDelete]);
 
     useEffect(() => console.log('Got entries:', entries), [entries])
@@ -74,7 +89,8 @@ function EditEntries({ onNew }) {
     }
     console.dir(entries)
 
-    if(entries === '') return <div>Loading...</div>
+    if (loading) return <div>Loading...</div>
+    else if (error) return <div>An error occurred :(</div>
 
     return (
         <>
@@ -89,12 +105,12 @@ function EditEntries({ onNew }) {
                                 entry_id={entry.entry_id}
                                 sitename={entry.sitename}
                                 username={entry.username}
-                                password={entry.password ?? decrypt(
-                                            entry.passhash, 
-                                            auth.key,
-                                            entry.salt,
-                                            entry.iv,
-                                            entry.authtag)}
+                                passhash={entry.passhash}
+                                key_info={{
+                                    salt: entry.salt,
+                                    iv: entry.iv,
+                                    authTag: entry.authtag
+                                }}
                                 salt={entry.salt}
                                 iv={entry.iv}
                                 saltID={entry.salt_id}

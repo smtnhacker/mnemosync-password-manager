@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { encrypt  } from '../util/security';
+import { encrypt, decrypt  } from '../util/security';
 import authContext from '../util/authContext';
 
 import './styles/EditableEntries.css';
@@ -29,9 +29,22 @@ const TinySecondaryButton = props => {
     )
 }
 
-function EditableEntry({ onDelete, entry_id, sitename, username, password, salt, iv, saltID, onUpdate }) {
+function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_info, salt, iv, saltID, onUpdate }) {
+    const auth = useContext(authContext);
     const [mode, setMode] = useState(0);
-    const auth = useContext(authContext)
+    const [loading, setLoading] = useState(false);
+    const [password, setPassword] = useState();
+
+    useEffect(() => {
+        if (mode === 1 && !password) {
+            setLoading(true);
+            setTimeout(() => {
+                const decoded = decrypt(passhash, auth.key, key_info.salt, key_info.iv, key_info.authTag);
+                setPassword(decoded);
+                setLoading(false);
+            }, 300);
+        }
+    }, [mode])
 
     const handleEdit = e => {
         console.log('Clicked edit!')
@@ -44,13 +57,13 @@ function EditableEntry({ onDelete, entry_id, sitename, username, password, salt,
         onDelete(entry_id)
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         if (!e.target.password.value &&
             !e.target.sitename.value &&
             !e.target.username.value) {
-                console.log("Noting changed...");
+                console.log("Nothing changed...");
                 setMode(0);
                 return;
             }
@@ -80,6 +93,9 @@ function EditableEntry({ onDelete, entry_id, sitename, username, password, salt,
     
             setMode(0);
             onUpdate(newEntry)
+            if (e.target.password.value) {
+                setPassword(e.target.password.value)
+            }
             // should also update the currently shown entries
 
         } catch (err) {
@@ -116,7 +132,9 @@ function EditableEntry({ onDelete, entry_id, sitename, username, password, salt,
                     </div>
                     <div>
                         <label>Password:</label>
-                        <TextInput type="text" name="password" placeholder={password} />
+                        {loading ? 
+                            <TextInput name="password" disabled placeholder="Decoding..." />
+                            :<TextInput type="text" name="password" placeholder={password} />}
                     </div>
                     <TinyPrimaryButton width="430px" type="submit" > Submit </TinyPrimaryButton>
                 </form>

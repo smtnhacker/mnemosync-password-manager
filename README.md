@@ -47,7 +47,7 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [ ] Offload encryption/decryption to Web Workers
 
-- [ ] Protect the routes and add CSRF tokens
+- [x] Protect the routes and add CSRF tokens
 
 - [ ] Fix the schema (breaking change)
 

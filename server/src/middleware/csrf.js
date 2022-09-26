@@ -9,11 +9,12 @@ module.exports = {
     reqCSRFToken: async (req, res, next) => {
         const token = req.header('XSRF-TOKEN')
         if (!token) {
-            res.status(401).json({ msg: "Missing Token" })
+            return res.status(401).json({ msg: "Missing Token" })
         }
 
         jwt.verify(token, process.env.JWTSECRET, (err, payload) => {
             if (err) {
+                console.log("JWT: verification failed", token)
                 return next(err)
             }
 

@@ -6,8 +6,24 @@ const {
     genServerRandom,
     genKey
 } = require('../../util/security')
+const { reqAuthenticate } = require('../../middleware/auth')
+const { createCSRFToken } = require('../../util/csrf')
 
 const router = express.Router()
+
+router.get('/token', reqAuthenticate, (req, res) => {
+    const userID = req.session.userID;
+    if (!userID) {
+        return res.status(401).json({ msg: "Unauthenticated. Please login" })
+    }
+    createCSRFToken(userID)
+        .then(token => {
+            res.json({ token: token })
+        })
+        .catch(err => {
+            res.status(400).json({ msg: err })
+        })
+})
 
 router.post('/handshake', (req, res) => {
     if(req.session.channelKey && req.session.isSecure) {

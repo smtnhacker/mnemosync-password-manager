@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 
 import userContext from '../util/userContext'
+import authContext from '../util/authContext'
 import './styles/NavBar.css'
 import { THEME } from '../constants'
 
@@ -33,10 +34,11 @@ const NavButton = styled.button`
 const NavBar = ({ logged }) => {
     const navigate = useNavigate()
     const user = useContext(userContext)
+    const auth = useContext(authContext)
 
     const handleLogout = e => {
         e.preventDefault()
-        delete axios.defaults.headers.common['XSRF-TOKEN'];
+        auth.deleteToken()
         user.deleteUser()
         navigate('/')
     }

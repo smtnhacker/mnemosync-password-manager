@@ -16,39 +16,62 @@ const updateEntry = async (entry) => {
 }
 
 function PracticeApp() {
-    const [entries, setEntries] = useState('');
+    // might need to use useReducer for these...
+    const [loading, setLoading] = useState(false);
+    const [decoding, setDecoding] = useState(false);
+    const [error, setError] = useState(false);
+    const [entries, setEntries] = useState([]);
+
     const [retries, setRetries] = useState(2);
     const auth = useContext(authContext);
 
-    const processEntries = entry => {
+    const processEntries = arr => {
         // also get the password
-        const password = decrypt(entry.passhash, auth.key, entry.salt, entry.iv, entry.authtag);
-        if(entry.entry_detail_id) {
-            return {...entry, password: password, left: 1};
+        if (arr.length) {
+            setDecoding(true);
         }
-        else {
-            return {...entry, password: password, left: 3};
-        }
+        arr.forEach((entry) => {
+            setTimeout(() => {
+                // const password = decrypt(entry.passhash, auth.key, entry.salt, entry.iv, entry.authtag);
+                setEntries(prev => {
+                    if (entry.entry_detail_id) {
+                        return [...prev, {...entry, left: 1}];
+                    }
+                    else {
+                        return [...prev, {...entry, left: 3}];
+                    }
+                })
+                setDecoding(false);
+            }, 0)
+        })
     }
 
     useEffect(() => {
         const getEntries = async () => {
+            setLoading(true);
+            setError(false);
             try{
                 const res = await axios.get('http://localhost:8000/api/practice/start-practice',
                 {withCredentials: true});
+                setLoading(false);
                 return res.data;
             } catch (err) {
-                console.log(err);
-                return 'error';
+                setError(true);
+                setLoading(false);
+                throw err;
             }
         }
-        getEntries().then(res => setEntries(res.map(processEntries)));
+        getEntries()
+            .then(res => processEntries(res))
+            .catch(err => console.log(err))
     }, [])
 
     useEffect(() => console.log('updated entries!', entries), [entries]);
 
-    if(entries === '') return <div>Loading...</div>
-    if(entries.length === 0) return <div>Finished practice!</div>
+    if (loading) return <div>Fetching passwords...</div>
+    else if (decoding) return <div>Decoding encryption...</div>
+    else if (error) return <div>Something went wrong :(</div>
+    else if(entries.length === 0) return <div>Finished practice!</div>
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -58,6 +81,15 @@ function PracticeApp() {
         const inputPass = e.target[0].value;
         const newEntries = entries.slice(1);
         e.target.reset();
+
+        const password = curEntry.password ?? decrypt(
+            curEntry.passhash,
+            auth.key,
+            curEntry.salt,
+            curEntry.iv,
+            curEntry.authtag
+        );
+        curEntry.password = password
 
         if(inputPass !== curEntry.password) {
             alert('Wrong password!');

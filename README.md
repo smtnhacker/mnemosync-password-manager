@@ -43,6 +43,14 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [ ] Add some tests (maybe?)
 
+- [ ] Offload encryption/decryption to Web Workers
+
+- [ ] Protect the routes and add CSRF tokens
+
+- [ ] Fix the schema (breaking change)
+
+- [ ] Fix the key-generation and give each user their own salt (breaking change)
+
 ### Contribution
 
 Since this is a practice project, I _might_ accept criticisms. But since this is **just** a practice project, I might not continue working on this so to save you the trouble, I won't be accepting contributions.

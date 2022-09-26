@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 
@@ -35,6 +36,7 @@ const NavBar = ({ logged }) => {
 
     const handleLogout = e => {
         e.preventDefault()
+        delete axios.defaults.headers.common['XSRF-TOKEN'];
         user.deleteUser()
         navigate('/')
     }

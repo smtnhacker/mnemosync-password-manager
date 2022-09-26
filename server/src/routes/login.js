@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../util/db')
 const security = require('../util/security')
+const { createCSRFToken } = require('../util/csrf')
 
 const router = express.Router()
 
@@ -26,10 +27,17 @@ router.post('/', async (req, res, next) => {
                 req.session.userID = userID;
                 req.session.save();
                 console.log("userID:", req.session.userID)
-                return res.json({ 
-                    msg: `Successfully login as user ${userID}`,
-                    userID: userID
-                });
+                createCSRFToken(userID)
+                    .then(token => {
+                        res.json({ 
+                            msg: `Successfully login as user ${userID}`,
+                            token: token,
+                            userID: userID
+                    })})
+                    .catch(err => {
+                        res.status(400).json({ msg: err })
+                    })
+
             }  else {
                 return res.status(400).json({ msg: "Invalid username or password" });
             }

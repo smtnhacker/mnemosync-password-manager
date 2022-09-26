@@ -36,13 +36,14 @@ function Login({ loginSuccessRedirect }) {
                 password: password
             }, {withCredentials: true});
             
-            console.dir(res.data.msg);
+            console.dir(res.data);
+            axios.defaults.headers.common['XSRF-TOKEN'] = res.data.token;
             getUser();
             auth.setKey(password);
             navigate(loginSuccessRedirect);
         } catch (err) {
             if (err.response) {
-                alert(err.response.data.msg)
+                console.dir(err.response)
             }
         }
     }

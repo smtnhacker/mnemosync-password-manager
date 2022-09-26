@@ -23,7 +23,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', 'XSRF-TOKEN, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
     next();
 })
 
@@ -69,4 +69,4 @@ app.get('/', async (req, res) => {
     }
 })
 
-app.listen(PORT, () => console.log(`Listing on port ${PORT}.`))
+app.listen(PORT, () => console.log(`Listening on port ${PORT}.`))

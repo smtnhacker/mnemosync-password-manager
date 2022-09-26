@@ -4,6 +4,7 @@ module.exports = {
             console.log("reqAuthenticate Error:", req.originalUrl, req.session)
             return res.status(401).end();
         } else {
+            console.log("reqAuthenticate Success:", req.originalUrl, req.session)
             next();
         }
     }

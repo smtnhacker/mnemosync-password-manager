@@ -52,7 +52,7 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
     }
 
     const handleDelete = e => {
-        axios.delete(`http://localhost:8000/api/entry/${entry_id}`)
+        axios.delete(`http://localhost:8000/api/entry/${entry_id}`, { withCredentials: true })
             .then(() => console.log('Deleted!'))
         onDelete(entry_id)
     }

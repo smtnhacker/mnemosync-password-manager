@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { encrypt } from "../util/security"
@@ -13,6 +13,7 @@ import SecondaryButton from "./atoms/SecondaryButton";
 function AddEntries() {
     const navigate = useNavigate()
     const auth = useContext(authContext)
+    const [status, setStatus] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,10 +37,10 @@ function AddEntries() {
 
             console.dir(res.data);
             if (res.statusText === 'OK') {
-                alert(`Created entry`);
+                setStatus('Created entry')
                 e.target.reset();
             } else {
-                alert('Somethiong went wrong');
+                setStatus('Something went wrong')
             }
 
         } catch(error) {
@@ -55,7 +56,11 @@ function AddEntries() {
     }
 
     return (
-        <div className="container">
+        <div className="container" style={{ 
+                display: "flex", 
+                flexDirection: "column", 
+                alignItems: "center" 
+        }}>
             <form onSubmit={handleSubmit}>
                 <h3>Add Entry</h3>
                 <div className="form-entry">
@@ -91,6 +96,7 @@ function AddEntries() {
                 <PrimaryButton type="submit">Create</PrimaryButton>
                 <SecondaryButton onClick={handleCancel}>Cancel</SecondaryButton>
             </form>
+            <p>{status}</p>
         </div>
     )
 }

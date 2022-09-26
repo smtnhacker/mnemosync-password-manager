@@ -39,6 +39,8 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [ ] Make the UI responsive
 
+- [ ] Make the site look legit
+
 - [X] Actually add the SRS algorithm
 
 - [ ] Add some tests (maybe?)
@@ -50,6 +52,8 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 - [ ] Fix the schema (breaking change)
 
 - [ ] Fix the key-generation and give each user their own salt (breaking change)
+
+- [ ] Use a local PIN to generate salts and validate edits / deletion.
 
 ### Contribution
 

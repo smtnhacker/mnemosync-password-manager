@@ -7,6 +7,12 @@ _Note: Might not help for systems that uses stuff like  2FA._
 
 This was made for a PERN workshop, at work. It is ~~still far from~~ currently somewhat working, but to be honest, I'm not sure if its being done right. In particular, for a password manager, its security ~~is _still_~~ _might_ horrible ~~(does not even encrypt passwords yet)~~.
 
+### Images
+
+![Landing Page](https://github.com/smtnhacker/mnemosync-password-manager/tree/main/doc/landing_page.png?raw=true)
+
+![Practice Sample](https://github.com/smtnhacker/mnemosync-password-manager/tree/main/doc/practice_page.png?raw=true)
+
 ### Testing
 
 1. Using the terminal, go to the root directory.

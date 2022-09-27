@@ -20,6 +20,7 @@ function PracticeApp() {
     const [loading, setLoading] = useState(false);
     const [decoding, setDecoding] = useState(false);
     const [error, setError] = useState(false);
+    const [decodeError, setDecodeError] = useState(false);
     const [entries, setEntries] = useState([]);
 
     const [retries, setRetries] = useState(2);
@@ -70,6 +71,7 @@ function PracticeApp() {
 
     if (loading) return <div>Fetching passwords...</div>
     else if (decoding) return <div>Decoding encryption...</div>
+    else if (decodeError) return <div>Cannot decode password using given key. If the key is wrong, please refresh the page to reenter key.</div>
     else if (error) return <div>Something went wrong :(</div>
     else if(entries.length === 0) return <div>Finished practice!</div>
 
@@ -82,14 +84,23 @@ function PracticeApp() {
         const newEntries = entries.slice(1);
         e.target.reset();
 
-        const password = curEntry.password ?? decrypt(
-            curEntry.passhash,
-            auth.key,
-            curEntry.salt,
-            curEntry.iv,
-            curEntry.authtag
-        );
-        curEntry.password = password
+        let password = curEntry.password;
+
+        if (!password) {
+            try {
+                password = decrypt(
+                    curEntry.passhash,
+                    auth.key,
+                    curEntry.salt,
+                    curEntry.iv,
+                    curEntry.authtag
+                );
+                curEntry.password = password
+            } catch (err) {
+                return setDecodeError(true);
+            }
+        }
+
 
         if(inputPass !== curEntry.password) {
             alert('Wrong password!');

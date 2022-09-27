@@ -33,18 +33,24 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
     const auth = useContext(authContext);
     const [mode, setMode] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const [password, setPassword] = useState();
 
     useEffect(() => {
         if (mode === 1 && !password) {
             setLoading(true);
             setTimeout(() => {
-                const decoded = decrypt(passhash, auth.key, key_info.salt, key_info.iv, key_info.authTag);
-                setPassword(decoded);
-                setLoading(false);
+                try {
+                    const decoded = decrypt(passhash, auth.key, key_info.salt, key_info.iv, key_info.authTag);
+                    setPassword(decoded);
+                    setLoading(false);
+                } catch (err) {
+                    setLoading(false);
+                    setError(true);
+                }
             }, 300);
         }
-    }, [mode])
+    }, [mode, auth.key])
 
     const handleEdit = e => {
         console.log('Clicked edit!')
@@ -133,8 +139,10 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
                     <div>
                         <label>Password:</label>
                         {loading ? 
-                            <TextInput name="password" disabled placeholder="Decoding..." />
-                            :<TextInput type="text" name="password" placeholder={password} />}
+                            <TextInput name="password" disabled placeholder="Decoding..." /> :
+                         error ? 
+                            <TextInput name="password" disabled placeholder="Invalid key. Please refresh" /> :
+                            <TextInput type="text" name="password" placeholder={password} />}
                     </div>
                     <TinyPrimaryButton width="430px" type="submit" > Submit </TinyPrimaryButton>
                 </form>

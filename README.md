@@ -9,9 +9,9 @@ This was made for a PERN workshop, at work. It is ~~still far from~~ currently s
 
 ### Images
 
-![Landing Page](https://github.com/smtnhacker/mnemosync-password-manager/tree/main/doc/landing_page.png?raw=true)
+![Landing Page](https://github.com/smtnhacker/mnemosync-password-manager/blob/main/doc/landing_page.png?raw=true)
 
-![Practice Sample](https://github.com/smtnhacker/mnemosync-password-manager/tree/main/doc/practice_page.png?raw=true)
+![Practice Sample](https://github.com/smtnhacker/mnemosync-password-manager/blob/main/doc/practice_page.png?raw=true)
 
 ### Testing
 

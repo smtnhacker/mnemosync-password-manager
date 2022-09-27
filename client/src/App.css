@@ -5,11 +5,11 @@
   background-color: #111213;
   color: #FBFBFF;
   font-size: calc(10px + 2vmin);
-  font-family: monospace;
 }
 
 .App-header {
-  min-height: 100vh;
+  min-height: 83vh;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -33,6 +33,8 @@
   border-radius: 5px;
 }
 
-button {
-  font-family: monospace;
+sub {
+  font-size: 0.5em;
+  opacity: 0.5;
+  padding: 5px;
 }

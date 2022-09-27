@@ -13,6 +13,7 @@ const ButtonStyled = styled.button`
     font-size: ${props => props.fontSize ? props.fontSize : "0.75em"};
     border-radius: 10px;
     border-color: rgba(0,0,0,0);
+    transition: border-color 0.5s;
 
     &:hover {
         cursor: pointer;

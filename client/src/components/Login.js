@@ -57,30 +57,32 @@ function Login({ loginSuccessRedirect }) {
             }}>
                 <Card>
                     <form onSubmit={e => handleSubmit(e, getUser)} >
-                        <h3>Login</h3>
+                        <h3>login</h3>
                         <FormGroup>
-                            <Label>Username</Label> 
+                            <Label hidden>username</Label> 
                             <TextInput 
                                 type="text"  
                                 id="userInput" 
                                 name="username"
                                 value={username}
+                                placeholder="Username"
                                 required
                                 onChange={(e) => setUsername(e.target.value)}    
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label>Password</Label> 
+                            <Label hidden>password</Label> 
                             <TextInput 
                                 type="password"  
                                 id="passInput" 
                                 name="password"
                                 value={password}
+                                placeholder= "Password"
                                 required
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </FormGroup>
-                        <PrimaryButton type="submit">Login</PrimaryButton>
+                        <PrimaryButton width="30ch" type="submit">Login</PrimaryButton>
                     </form>
                 </Card>
             </div>

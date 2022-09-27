@@ -115,8 +115,8 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
         // view mode
         return (
             <div className='view-container'>
-                <p>Site: {sitename}</p>
-                <p>Username: {username}</p>
+                <p title="Site"><span className="sitename">{sitename}</span></p>
+                <p title="Username"><span className="username">{username}</span></p>
                 {/* <p>Password: {password}</p> */}
                 <TinyPrimaryButton onClick={handleEdit}>Edit</TinyPrimaryButton>
                 <TinySecondaryButton onClick={handleDelete}>Delete</TinySecondaryButton>

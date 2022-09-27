@@ -3,7 +3,7 @@ import styled from "styled-components"
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 16px;
+    margin: 8px;
 
     ${props => props.center ? "align-items: center" : ""}
 `

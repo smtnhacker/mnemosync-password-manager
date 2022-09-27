@@ -18,10 +18,10 @@ const NavButton = styled.button`
     margin: 0px 10px;
     border: none;
     border-radius: 5px;
+    transition: color 0.3s;
 
     &:hover {
         cursor: pointer;
-        font-size: 17px;
         color: ${THEME.PRIMARY};
     }
 
@@ -49,10 +49,10 @@ const NavBar = ({ logged }) => {
                 <div className="logo" onClick={()=>navigate("/")}>mnemosync</div>
                 <div className="utils">
                     {logged ? 
-                        <NavButton onClick={handleLogout}>Logout</NavButton> : 
+                        <NavButton onClick={handleLogout}>logout</NavButton> : 
                         <>
-                            <NavButton onClick={()=>navigate("/login")}>Login</NavButton>
-                            <NavButton onClick={()=>navigate("/signup")}>Signup</NavButton>
+                            <NavButton onClick={()=>navigate("/login")}>login</NavButton>
+                            <NavButton onClick={()=>navigate("/signup")}>signup</NavButton>
                         </>}
                 </div>
             </div>
@@ -60,9 +60,9 @@ const NavBar = ({ logged }) => {
                 logged && 
                 <div className="lower-nav">
                     <ul>
-                        <li><NavButton onClick={()=>navigate("/home/")}>Dashboard</NavButton></li>
-                        <li><NavButton onClick={()=>navigate("/home/practice")}>Practice</NavButton></li>
-                        <li><NavButton onClick={()=>navigate("/home/entries")}>Entries</NavButton></li>
+                        <li><NavButton onClick={()=>navigate("/home/")}>dashboard</NavButton></li>
+                        <li><NavButton onClick={()=>navigate("/home/practice")}>practice</NavButton></li>
+                        <li><NavButton onClick={()=>navigate("/home/entries")}>entries</NavButton></li>
                     </ul>
                 </div>
             }

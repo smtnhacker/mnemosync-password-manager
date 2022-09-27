@@ -46,24 +46,26 @@ const SignUp = ({ signupSuccessRedirect }) => {
     >
       <Card>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <h3>Sign-Up</h3>
+          <h3>signup</h3>
           <FormGroup>
-            <Label>Username</Label>
+            <Label hidden>Username</Label>
             <TextInput
               type="text"
               id="userInput"
               name="username"
               value={username}
               required
+              placeholder="Username"
               onChange={(e) => setUsername(e.target.value)}
             />
           </FormGroup>
           <FormGroup>
-            <Label>Password</Label>
+            <Label hidden>Password</Label>
             <TextInput
               type="password"
               id="passInput"
               name="password"
+              placeholder="Password"
               value={password}
               required
               minLength={8}
@@ -72,19 +74,23 @@ const SignUp = ({ signupSuccessRedirect }) => {
               title={PATTERN_TITLE}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <sub>
+              {PATTERN_TITLE}
+            </sub>
           </FormGroup>
           <FormGroup>
-            <Label>Confirm Password</Label>
+            <Label hidden>Confirm Password</Label>
             <TextInput
               type="password"
               id="passInput"
               name="password"
+              placeholder="Confirm Password"
               pattern={Array.from(password).reduce((total, c) => {return total + ("@$!%*?&".includes(c) ? `\\${c}` : c)}, '')}
               title="Please make sure it's the same with the password above."
               required
             />
           </FormGroup>
-          <PrimaryButton type="submit">Sign-Up</PrimaryButton>
+          <PrimaryButton width="30ch" type="submit">Sign-Up</PrimaryButton>
         </form>
       </Card>
     </div>

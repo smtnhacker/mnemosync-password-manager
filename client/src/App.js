@@ -1,9 +1,10 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useContext } from 'react';
 
 import './App.css';
 import userContext from './util/userContext';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 
 function App() {
   const user = useContext(userContext);
@@ -15,6 +16,7 @@ function App() {
       <header className="App-header">
         <Outlet />
       </header>
+      <Footer />      
     </div>
   );
 }

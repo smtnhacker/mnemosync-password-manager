@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { 
   BrowserRouter,
@@ -17,7 +18,7 @@ import SignUp from './components/SignUp';
 import Dashboard from './components/Dashboard';
 import Main from './components/Main';
 import Stats from './components/Stats';
-import axios from 'axios';
+import PasswordModal from './components/PasswordModal';
 
 const ProtectedPage = ({ hasAccess, children }) => {
     if (!hasAccess) {
@@ -28,7 +29,7 @@ const ProtectedPage = ({ hasAccess, children }) => {
 
 const RoutingWrapper = () => {
     const [userID, getUser, deleteUser] = useUser();
-    const [key, setKey] = useState("sikretongmalupethshshshs")
+    const [key, setKey] = useState()
     const [token, setToken] = useState()
     // const channelKey = useHandshake([])
 
@@ -74,6 +75,7 @@ const RoutingWrapper = () => {
         setToken: obtainToken,
         deleteToken: deleteToken
     }
+    console.dir(authState)
 
     return (
         <authContext.Provider value={authState}>
@@ -81,18 +83,18 @@ const RoutingWrapper = () => {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<App />}>
-                        <Route index element={<Landing />} />
-                        <Route path="login" element={<Login loginSuccessRedirect={'/home'} />} />
-                        <Route path="signup" element={<SignUp signupSuccessRedirect={'/login'} />} />
-                        <Route path="home" element={
-                            <ProtectedPage hasAccess={!!userID}>
-                                <Dashboard />
-                            </ProtectedPage>
-                        } >
-                            <Route index element={<Stats />} />
-                            <Route path=":mode" element={<Main />} />
-                        </Route>
-                        <Route path="*" element={<p>Page does not exist</p>} />
+                            <Route index element={<Landing />} />
+                            <Route path="login" element={<Login loginSuccessRedirect={'/home'} />} />
+                            <Route path="signup" element={<SignUp signupSuccessRedirect={'/login'} />} />
+                            <Route path="home" element={
+                                <ProtectedPage hasAccess={!!userID}>
+                                    {authState.key ? <Dashboard /> : <PasswordModal onSubmit={key => setKey(key)}/>}
+                                </ProtectedPage>
+                            } >
+                                <Route index element={<Stats />} />
+                                <Route path=":mode" element={<Main />} />
+                            </Route>
+                            <Route path="*" element={<p>Page does not exist</p>} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

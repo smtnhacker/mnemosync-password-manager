@@ -4,6 +4,8 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin: 16px;
+
+    ${props => props.center ? "align-items: center" : ""}
 `
 
 const FormGroup = props => {

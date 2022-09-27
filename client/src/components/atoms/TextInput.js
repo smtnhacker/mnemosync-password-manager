@@ -1,3 +1,4 @@
+import React from "react"
 import styled from "styled-components"
 
 import { THEME } from "../../constants"
@@ -21,8 +22,8 @@ const Wrapper = styled.input`
     }
 `
 
-const TextInput = props => {
-    return <Wrapper autoComplete="off" {...props}>{props.children}</Wrapper>
+const TextInput = (props, ref) => {
+    return <Wrapper autoComplete="off" ref={ref} {...props}>{props.children}</Wrapper>
 }
 
-export default TextInput
+export default React.forwardRef(TextInput)

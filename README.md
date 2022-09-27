@@ -39,7 +39,7 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [ ] Make the UI responsive
 
-- [ ] Make the site look legit
+- [X] Make the site look legit
 
 - [X] Actually add the SRS algorithm
 

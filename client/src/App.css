@@ -8,8 +8,8 @@
 }
 
 .App-header {
-  min-height: 83vh;
-  max-height: 85vh;
+  min-height: 80vh;
+  max-height: 83vh;
   display: flex;
   flex-direction: column;
   align-items: stretch;

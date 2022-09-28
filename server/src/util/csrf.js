@@ -12,7 +12,7 @@ exports.createCSRFToken = async (userID) => {
         throw "UserID missing in creating CSRF Token!" 
     }
     return new Promise((res, rej) => {
-        jwt.sign({ userID: userID }, process.env.jwtSecret ?? "jwtsecret", { expiresIn: expiration * 3600 }, (err, token) => {
+        jwt.sign({ userID: userID }, process.env.JWTSECRET ?? "jwtsecret", { expiresIn: expiration * 3600 }, (err, token) => {
             if (err) {
                 rej(err)
             }

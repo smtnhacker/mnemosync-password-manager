@@ -49,6 +49,10 @@ app.use(sessions({
 const mountRoutes = require('./src/routes')
 mountRoutes(app);
 
+app.get('/api/up', (req, res) => {
+    res.status(200).end();
+})
+
 // Serve static files
 app.use(express.static(path.join(__dirname + '/src/public')))
 

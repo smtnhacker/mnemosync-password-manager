@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { encrypt } from "../util/security"
 import authContext from "../util/authContext";
 import { PATTERN, PATTERN_TITLE } from "../constants";
+import API_ENDPOINT from "../config"
 
 import TextInput from "./atoms/TextInput";
 import PrimaryButton from "./atoms/PrimaryButton";
@@ -26,7 +27,7 @@ function AddEntries() {
         // validate input
         
         try {
-            const res = await axios.post('http://localhost:8000/api/entry/new', {
+            const res = await axios.post(`${API_ENDPOINT}/api/entry/new`, {
                 sitename: sitename,
                 username: username,
                 password: password,

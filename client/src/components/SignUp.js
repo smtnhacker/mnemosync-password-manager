@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { PATTERN, PATTERN_TITLE } from "../constants";
+import API_ENDPOINT from '../config'
 
 import Card from "./atoms/Card";
 import FormGroup from "./atoms/FormGroup";
@@ -21,7 +22,7 @@ const SignUp = ({ signupSuccessRedirect }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.post(
-      "http://localhost:8000/api/users/new",
+      `${API_ENDPOINT}/api/users/new`,
       {
         username: username,
         password: password,

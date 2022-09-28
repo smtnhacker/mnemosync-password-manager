@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { encrypt, decrypt  } from '../util/security';
 import authContext from '../util/authContext';
+import API_ENDPOINT from "../config"
 
 import './styles/EditableEntries.css';
 import TextInput from './atoms/TextInput';
@@ -58,7 +59,7 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
     }
 
     const handleDelete = e => {
-        axios.delete(`http://localhost:8000/api/entry/${entry_id}`, { withCredentials: true })
+        axios.delete(`${API_ENDPOINT}/api/entry/${entry_id}`, { withCredentials: true })
             .then(() => console.log('Deleted!'))
         onDelete(entry_id)
     }
@@ -88,7 +89,7 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
                 newEntry.passhash = encrypted;
             }
             
-            axios.put('http://localhost:8000/api/entry/update_detail', {
+            axios.put(`${API_ENDPOINT}/api/entry/update_detail`, {
                 entry_id: entry_id,
                 sitename: e.target.sitename.value,
                 username: e.target.username.value,

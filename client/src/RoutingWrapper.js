@@ -10,6 +10,7 @@ import {
 import authContext from './util/authContext';
 import userContext from './util/userContext';
 import useUser from './hooks/useUser';
+import API_ENDPOINT from './config'
 
 import App from './App';
 import Landing from './components/Landing';
@@ -35,7 +36,7 @@ const RoutingWrapper = () => {
 
     const obtainToken = () => {
         if (!token) {
-            axios.get('http://localhost:8000/api/security/token', { withCredentials: true })
+            axios.get(`${API_ENDPOINT}/api/security/token`, { withCredentials: true })
                 .then(res => {
                     setToken(res.data.token)
                     axios.defaults.headers.common['XSRF-TOKEN'] = res.data.token

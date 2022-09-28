@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
+import API_ENDPOINT from '../config'
+
 const Stats = props => {
     const [entryCount, setEntryCount] = useState()
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/entry/count_due", { withCredentials: true})
+        axios.get(`${API_ENDPOINT}/api/entry/count_due`, { withCredentials: true})
             .then(res => setEntryCount(res.data))
     })
 

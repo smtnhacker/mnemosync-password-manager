@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import userContext from '../util/userContext';
 import authContext from '../util/authContext';
+import API_ENDPOINT from '../config'
 
 import Card from './atoms/Card'
 import TextInput from './atoms/TextInput';
@@ -31,7 +32,7 @@ function Login({ loginSuccessRedirect }) {
     const handleSubmit = async (e, getUser) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:8000/api/login", {
+            const res = await axios.post(`${API_ENDPOINT}/api/login`, {
                 username: username,
                 password: password
             }, {withCredentials: true});

@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 
+import API_ENDPOINT from '../config'
+
 const useUser = () => {
     const [userID, setUserID] = useState();
     
     const getUser = async () => {
-        const res = await axios.get('http://localhost:8000/api/users', { withCredentials: true });
+        const res = await axios.get(`${API_ENDPOINT}/api/users`, { withCredentials: true });
         if(res.data !== 'No User') {
             setUserID(res.data);
         } else {
@@ -15,7 +17,7 @@ const useUser = () => {
     }
 
     const deleteUser = () => {
-        axios.get('http://localhost:8000/api/logout', { withCredentials: true })
+        axios.get(`${API_ENDPOINT}/api/logout`, { withCredentials: true })
             .then(() => setUserID())
     }
 

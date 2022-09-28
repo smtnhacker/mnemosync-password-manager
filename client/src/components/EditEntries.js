@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from 'react'
 
 import { decrypt } from '../util/security'
 import authContext from '../util/authContext'
+import API_ENDPOINT from '../config'
 
 import { THEME } from '../constants'
 import EditableEntry from './EditableEntry'
@@ -44,7 +45,7 @@ function EditEntries({ onNew }) {
 
     useEffect(() => {
         setLoading(true);
-        axios.get('http://localhost:8000/api/entry/list', {withCredentials: true})
+        axios.get(`${API_ENDPOINT}/api/entry/list`, {withCredentials: true})
             .then(res => {
                 // res.data.forEach((entry) => { 
                 //     const curEntry = {

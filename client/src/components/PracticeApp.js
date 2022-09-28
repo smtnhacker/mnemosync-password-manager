@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { decrypt } from '../util/security'
 import authContext from '../util/authContext'
+import API_ENDPOINT from '../config'
 
 import './styles/PracticeApp.css'
 import TextInput from './atoms/TextInput'
@@ -10,7 +11,7 @@ import FormGroup from './atoms/FormGroup'
 import PrimaryButton from './atoms/PrimaryButton'
 
 const updateEntry = async (entry) => {
-    await axios.put(`http://localhost:8000/api/practice/finish-card/`, {
+    await axios.put(`${API_ENDPOINT}/api/practice/finish-card/`, {
         ...entry
     }, { withCredentials: true });
 }
@@ -52,7 +53,7 @@ function PracticeApp() {
             setLoading(true);
             setError(false);
             try{
-                const res = await axios.get('http://localhost:8000/api/practice/start-practice',
+                const res = await axios.get(`${API_ENDPOINT}/api/practice/start-practice`,
                 {withCredentials: true});
                 setLoading(false);
                 return res.data;

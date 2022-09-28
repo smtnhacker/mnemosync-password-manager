@@ -2,8 +2,8 @@ const { reqAuthenticate } = require('../middleware/auth')
 const { reqCSRFToken } = require('../middleware/csrf')
 
 module.exports = app => {
-    app.use('/login', require('./login'))
-    app.use('/logout', require('./logout'))
+    app.use('/api/login', require('./login'))
+    app.use('/api/logout', require('./logout'))
     app.use('/api/users', require('./api/users'))
     app.use('/api/entry', reqAuthenticate, reqCSRFToken, require('./api/entry'))
     app.use('/api/entry_open', require('./api/entry_open'))

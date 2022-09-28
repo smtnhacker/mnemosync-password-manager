@@ -31,7 +31,7 @@ function Login({ loginSuccessRedirect }) {
     const handleSubmit = async (e, getUser) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:8000/login", {
+            const res = await axios.post("http://localhost:8000/api/login", {
                 username: username,
                 password: password
             }, {withCredentials: true});

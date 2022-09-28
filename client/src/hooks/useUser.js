@@ -15,7 +15,7 @@ const useUser = () => {
     }
 
     const deleteUser = () => {
-        axios.get('http://localhost:8000/logout', { withCredentials: true })
+        axios.get('http://localhost:8000/api/logout', { withCredentials: true })
             .then(() => setUserID())
     }
 

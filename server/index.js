@@ -1,6 +1,6 @@
+const path = require('path')
 const express = require('express')
 const sessions = require('express-session')
-const axios = require('axios')
 const cors = require('cors')
 
 const dotenv = require('dotenv')
@@ -35,7 +35,7 @@ app.use(sessions({
     secret: process.env.sessionSecret || "secret",
     saveUninitialized: true,
     cookie: { 
-        maxAge: 1000 * 60 * 60 * 24, // 24 hours for DEV only, must be 1 hr in PROD
+        maxAge: 1000 * 60 * 60 * (process.env.COOKIE_MAX_AGE || 1), // 24 hours for DEV only, must be 1 hr in PROD
         path: '/',
         sameSite: 'none',
         httpOnly: true,
@@ -50,23 +50,13 @@ const mountRoutes = require('./src/routes')
 mountRoutes(app);
 
 // Serve static files
-app.use(express.static('public'))
-
-const PORT = process.env.PORT || 8000
+app.use(express.static(path.join(__dirname + '/src/public')))
 
 // Set-up homepage
-app.get('/', async (req, res) => {
-    console.log("Session:", req.session);
-    let session = req.session;
-    if(session.userID) {
-        const username = await axios.post(`http://localhost:${PORT}/api/users`, {
-            userID: session.userID
-        });
-        res.send(`Welcome ${username.data}!`);
-    }
-    else {
-        res.send('No login page yet but please login...');
-    }
-})
+// app.get('*', async (req, res) => {
+//     console.log("Session:", req.session);
+//     res.sendFile("index.html", { root: __dirname + '/src/public' })
+// })
 
+const PORT = process.env.PORT || 8000
 app.listen(PORT, () => console.log(`Listening on port ${PORT}.`))

@@ -8,6 +8,8 @@ const pool = new Pool({
     port: process.env.PGPort
 });
 
+console.log(`Connected to:\nUser: ${process.env.PGUser}\nDatabase: ${process.env.PGDatabase}`)
+
 module.exports = {
     pool: pool,
     query: async (query) => {

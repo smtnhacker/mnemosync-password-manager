@@ -5,6 +5,7 @@ const db = require('../../util/db')
 const { toStandardDateFormat, adjustDate } = require('../../util/formatter')
 
 const router = express.Router()
+const API_ENDPOINT = "https://mnemosync.onrender.com"
 
 router.get('/start-practice', async (req, res, next) => {
     const curDate = toStandardDateFormat(new Date());
@@ -67,9 +68,9 @@ router.put('/finish-card', async (req, res, next) => {
         }
         else {
             console.log("Cookie:", req.headers.cookie)
-            const newEntryDetail = await axios.post('http://localhost:8000/api/entrydetail/new');
+            const newEntryDetail = await axios.post(`${API_ENDPOINT}/api/entrydetail/new`);
             console.log('new detail', newEntryDetail.data);
-            await axios.put('http://localhost:8000/api/entry_open/add_detail', {
+            await axios.put(`${API_ENDPOINT}/api/entry_open/add_detail`, {
                 entry_detail_id: newEntryDetail.data.entryDetailID,
                 entry_id: entry_id
             });

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import { encrypt } from "../util/security"
 import authContext from "../util/authContext";
-import { PATTERN, PATTERN_TITLE } from "../constants";
 import API_ENDPOINT from "../config"
 
 import TextInput from "./atoms/TextInput";
@@ -21,7 +20,7 @@ function AddEntries() {
         const sitename = e.target.sitename.value;
         const username = e.target.username.value;
         const plainPassword = e.target.password.value;
-        const { encrypted, authTag, iv, salt } = encrypt(plainPassword, auth.key);
+        const { encrypted, authTag, iv, salt } = await encrypt(plainPassword, auth.key);
         const password = encrypted; 
         
         // validate input

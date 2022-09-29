@@ -1,11 +1,13 @@
 const express = require('express')
 const axios = require('axios')
+const dotenv = require('dotenv')
 
 const db = require('../../util/db')
 const { toStandardDateFormat, adjustDate } = require('../../util/formatter')
 
+dotenv.config();
 const router = express.Router()
-const API_ENDPOINT = "https://mnemosync.onrender.com"
+const API_ENDPOINT = process.env.API_ENDPOINT
 
 router.get('/start-practice', async (req, res, next) => {
     const curDate = toStandardDateFormat(new Date());

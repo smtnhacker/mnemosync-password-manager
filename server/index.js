@@ -56,11 +56,10 @@ app.get('/api/up', (req, res) => {
 // Serve static files
 app.use(express.static(path.join(__dirname + '/src/public')))
 
-// Set-up homepage
-// app.get('*', async (req, res) => {
-//     console.log("Session:", req.session);
-//     res.sendFile("index.html", { root: __dirname + '/src/public' })
-// })
+// Allow React to handle non-api routes
+app.get('*', async (req, res) => {
+    res.sendFile("index.html", { root: __dirname + '/src/public' })
+})
 
 const PORT = process.env.PORT || 8000
 app.listen(PORT, () => console.log(`Listening on port ${PORT}.`))

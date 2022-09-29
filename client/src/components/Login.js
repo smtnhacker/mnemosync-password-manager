@@ -11,6 +11,7 @@ import TextInput from './atoms/TextInput';
 import FormGroup from './atoms/FormGroup';
 import Label from './atoms/Label';
 import PrimaryButton from './atoms/PrimaryButton';
+import SecondaryButton from './atoms/SecondaryButton';
 
 function Login({ loginSuccessRedirect }) {
     const [username, setUsername] = useState('');
@@ -84,6 +85,9 @@ function Login({ loginSuccessRedirect }) {
                             />
                         </FormGroup>
                         <PrimaryButton width="30ch" type="submit">Login</PrimaryButton>
+                        <SecondaryButton padding="6px" fontSize="0.6em" onClick={() => navigate('/signup')}>
+                            I'm new here
+                        </SecondaryButton>
                     </form>
                 </Card>
             </div>

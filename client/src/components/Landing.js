@@ -28,12 +28,12 @@ const Landing = () => {
     }
 
     return (
-        <div style={{ paddingTop: "170px" }}>
+        <div>
             <div style={{ margin: "16px" }}>
                 <h1 style={{ margin: "8px", fontSize: "3em" }}>mnemosync</h1>
                 <subtitle>Download <span style={{ color: THEME.PRIMARY }}>passwords</span> into your brain.</subtitle>
             </div>
-            <div className={{ display: "flex" }}>
+            <div>
                 {
                     !user.userID ? 
                     <>

@@ -9,6 +9,7 @@ import './styles/PracticeApp.css'
 import TextInput from './atoms/TextInput'
 import FormGroup from './atoms/FormGroup'
 import PrimaryButton from './atoms/PrimaryButton'
+import Loading from './atoms/Loading'
 
 const updateEntry = async (entry) => {
     await axios.put(`${API_ENDPOINT}/api/practice/finish-card/`, {
@@ -29,9 +30,6 @@ function PracticeApp() {
 
     const processEntries = arr => {
         // also get the password
-        if (arr.length) {
-            setDecoding(true);
-        }
         arr.forEach((entry) => {
             setTimeout(() => {
                 // const password = decrypt(entry.passhash, auth.key, entry.salt, entry.iv, entry.authtag);
@@ -43,7 +41,6 @@ function PracticeApp() {
                         return [...prev, {...entry, left: 3}];
                     }
                 })
-                setDecoding(false);
             }, 0)
         })
     }
@@ -71,12 +68,11 @@ function PracticeApp() {
     useEffect(() => console.log('updated entries!', entries), [entries]);
 
     if (loading) return <div>Fetching passwords...</div>
-    else if (decoding) return <div>Decoding encryption...</div>
     else if (decodeError) return <div>Cannot decode password using given key. If the key is wrong, please refresh the page to reenter key.</div>
     else if (error) return <div>Something went wrong :(</div>
     else if(entries.length === 0) return <div>Finished practice!</div>
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // validate password
@@ -89,13 +85,15 @@ function PracticeApp() {
 
         if (!password) {
             try {
-                password = decrypt(
+                setDecoding(true);
+                password = await decrypt(
                     curEntry.passhash,
                     auth.key,
                     curEntry.salt,
                     curEntry.iv,
                     curEntry.authtag
-                );
+                    );
+                setDecoding(false);
                 curEntry.password = password
             } catch (err) {
                 return setDecodeError(true);
@@ -137,6 +135,7 @@ function PracticeApp() {
 
     return (
         <div className="practice-container">
+            { decoding && <Loading status="decoding" /> }
             <h3>Site: {entries[0].sitename}</h3>
             <h3>Username: {entries[0].username}</h3>
             <form onSubmit={handleSubmit}>
@@ -149,7 +148,7 @@ function PracticeApp() {
                     width="300px" 
                     type="submit"
                     padding="6px 12px"
-                >Submit</PrimaryButton>
+                    >Submit</PrimaryButton>
             </form>
         </div>
     )

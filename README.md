@@ -43,7 +43,7 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [X] Perform bare minimum input validations
 
-- [ ] Make the UI responsive
+- [X] Make the UI responsive
 
 - [X] Make the site look legit
 
@@ -51,7 +51,7 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [ ] Add some tests (maybe?)
 
-- [ ] Offload encryption/decryption to Web Workers
+- [X] ~~Offload encryption/decryption to Web Workers~~ Async suffices _for now_
 
 - [x] Protect the routes and add CSRF tokens
 

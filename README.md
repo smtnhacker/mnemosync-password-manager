@@ -61,6 +61,8 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [ ] Use a local PIN to generate salts and validate edits / deletion.
 
+- [ ] Improve logging
+
 ### Contribution
 
 Since this is a practice project, I _might_ accept criticisms. But since this is **just** a practice project, I might not continue working on this so to save you the trouble, I won't be accepting contributions.

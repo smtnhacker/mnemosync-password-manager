@@ -1,0 +1,63 @@
+@media screen and (min-width: 650px) {
+    .large-container {
+        display: flex;
+        flex-direction: column;
+    
+        font-size: 24px;
+    }
+    
+    .logo {
+        padding: 5px 20px;
+        border: solid 1px rgba(0,0,0,0);
+        border-radius: 8px;
+        transition: background-color 0.5s, color 0.5s;
+    
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .logo:hover {
+        cursor: pointer;
+        background-color: #0749A8;
+    }
+    
+    .upper-nav, .lower-nav {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .upper-nav {
+        justify-content: space-between;
+        align-items: center;
+        height: 64px;
+        padding: 0 16px 0 32px;
+        box-shadow: #2f71e8 0px 1px 3px;
+    }
+    
+    .lower-nav {
+        position: relative;
+        justify-content: center;
+        top: -2px;
+    }
+    
+    .lower-nav ul {
+        display: flex;
+        flex-direction: row;
+        margin: 3px 0px;
+    }
+    
+    .lower-nav li {
+        border: 1px solid rgba(0,0,0,0);
+        border-radius: 0px 0px 10px 10px;
+    }
+    
+    .lower-nav li:hover {
+        border: 1px solid #2f71e8;
+        color: white !important;
+    }
+}

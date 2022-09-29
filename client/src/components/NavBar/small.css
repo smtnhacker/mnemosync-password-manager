@@ -1,0 +1,53 @@
+@media screen and (max-width: 649px) {
+    .top-nav {
+        position: fixed;
+        padding: 12px 24px 12px 12px;
+        box-sizing: border-box;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+        box-shadow: #2f71e8 0px 1px 3px;
+    }
+    
+    .logo {
+        padding: 5px 20px;
+        border: solid 1px rgba(0,0,0,0);
+        border-radius: 8px;
+        transition: background-color 0.5s, color 0.5s;
+    
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .logo:hover {
+        cursor: pointer;
+        background-color: #0749A8;
+    }
+    
+    .bottom-nav {
+        position: fixed;
+        bottom: 00px;
+        left: 0;
+        width: 100vw;
+    }
+
+    .bottom-nav ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: baseline;
+        padding-inline-start: 0;
+    }
+
+    .bottom-nav ul li {
+        max-width: 25vw;
+    }
+}

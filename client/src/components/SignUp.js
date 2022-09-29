@@ -10,6 +10,7 @@ import FormGroup from "./atoms/FormGroup";
 import Label from "./atoms/Label";
 import TextInput from "./atoms/TextInput";
 import PrimaryButton from "./atoms/PrimaryButton";
+import SecondaryButton from "./atoms/SecondaryButton";
 
 const SignUp = ({ signupSuccessRedirect }) => {
   const [username, setUsername] = useState("");
@@ -92,6 +93,9 @@ const SignUp = ({ signupSuccessRedirect }) => {
             />
           </FormGroup>
           <PrimaryButton width="30ch" type="submit">Sign-Up</PrimaryButton>
+          <SecondaryButton padding="6px" fontSize="0.6em" onClick={() => navigate('/login')}>
+            I already have an account
+          </SecondaryButton>
         </form>
       </Card>
     </div>

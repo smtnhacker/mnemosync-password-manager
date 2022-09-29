@@ -2,11 +2,11 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 
-import userContext from '../util/userContext'
-import authContext from '../util/authContext'
+import userContext from '../../util/userContext'
+import authContext from '../../util/authContext'
 
-import './styles/NavBar.css'
-import { THEME } from '../constants'
+import './large.css'
+import { THEME } from '../../constants'
 
 const NavButton = styled.button`
     box-sizing: border-box;
@@ -31,7 +31,7 @@ const NavButton = styled.button`
     }
 `
 
-const NavBar = ({ logged }) => {
+const LargeNavBar = ({ logged }) => {
     const navigate = useNavigate()
     const user = useContext(userContext)
     const auth = useContext(authContext)
@@ -44,7 +44,7 @@ const NavBar = ({ logged }) => {
     }
 
     return (
-        <nav className="container">
+        <nav className="large-container">
             <div className="upper-nav">
                 <div className="logo" onClick={()=>navigate("/")}>mnemosync</div>
                 <div className="utils">
@@ -70,4 +70,4 @@ const NavBar = ({ logged }) => {
     )
 }
 
-export default NavBar
+export default LargeNavBar

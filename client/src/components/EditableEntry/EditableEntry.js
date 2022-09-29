@@ -1,34 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import MediaQuery from 'react-responsive'
 
-import { encrypt, decrypt  } from '../util/security';
-import authContext from '../util/authContext';
-import API_ENDPOINT from "../config"
+import { encrypt, decrypt  } from '../../util/security';
+import authContext from '../../util/authContext';
+import API_ENDPOINT from "../../config"
 
-import './styles/EditableEntries.css';
-import TextInput from './atoms/TextInput';
-import PrimaryButton from './atoms/PrimaryButton';
-import SecondaryButton from './atoms/SecondaryButton';
-
-const TinyPrimaryButton = props => {
-    return (
-        <PrimaryButton
-            fontSize="0.5em" 
-            width="100px" 
-            padding="6px 12px"
-            {...props}>{props.children}</PrimaryButton>
-    )
-}
-
-const TinySecondaryButton = props => {
-    return (
-        <SecondaryButton
-            fontSize="0.5em" 
-            width="100px" 
-            padding="6px 12px"
-            {...props}>{props.children}</SecondaryButton>
-    )
-}
+import LargeItemEdit from './LargeItemEdit';
+import LargeItemView from './LargeItemView';
+import SmallItemView from './SmallItemView';
+import SmallItemEdit from './SmallItemEdit';
 
 function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_info, salt, iv, saltID, onUpdate }) {
     const auth = useContext(authContext);
@@ -114,39 +95,42 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
 
     if(mode === 0) {
         // view mode
+        const viewProps = {
+            sitename: sitename,
+            username: username,
+            onEdit: handleEdit,
+            onDelete: handleDelete
+        }
         return (
-            <div className='view-container'>
-                <p title="Site"><span className="sitename">{sitename}</span></p>
-                <p title="Username"><span className="username">{username}</span></p>
-                <TinyPrimaryButton onClick={handleEdit}>Edit</TinyPrimaryButton>
-                <TinySecondaryButton onClick={handleDelete}>Delete</TinySecondaryButton>
-            </div>
+            <>
+                <MediaQuery minWidth={650}>
+                    <LargeItemView {...viewProps} />
+                </MediaQuery>
+                <MediaQuery maxWidth={649}>
+                    <SmallItemView {...viewProps} />
+                </MediaQuery>
+            </>
         )
     }
     else {
         // edit mode
+        const editProps = {
+            onSubmit: handleSubmit,
+            sitename: sitename,
+            username: username,
+            password: password,
+            loading: loading,
+            error: error
+        }
         return (
-            <div className='edit-container'>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Site:</label>
-                        <TextInput type="text" name="sitename" placeholder={sitename} />
-                    </div>
-                    <div>
-                        <label>Username:</label>
-                        <TextInput type="text" name="username" placeholder={username} />
-                    </div>
-                    <div>
-                        <label>Password:</label>
-                        {loading ? 
-                            <TextInput name="password" disabled placeholder="Decoding..." /> :
-                         error ? 
-                            <TextInput name="password" disabled placeholder="Invalid key. Please refresh" /> :
-                            <TextInput type="text" name="password" placeholder={password} />}
-                    </div>
-                    <TinyPrimaryButton width="430px" type="submit" > Submit </TinyPrimaryButton>
-                </form>
-            </div>
+            <>
+                <MediaQuery minWidth={650}>
+                    <LargeItemEdit {...editProps} />
+                </MediaQuery>
+                <MediaQuery maxWidth={649}>
+                    <SmallItemEdit {...editProps} />
+                </MediaQuery>
+            </>
         )
     }
 }

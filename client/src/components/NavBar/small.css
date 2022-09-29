@@ -1,8 +1,14 @@
 @media screen and (max-width: 649px) {
+    .small-container {
+        position: relative;
+        z-index: 2;
+    }
+    
     .top-nav {
         position: fixed;
         padding: 12px 24px 12px 12px;
         box-sizing: border-box;
+        height: 64px;
         top: 0;
         left: 0;
         width: 100vw;
@@ -10,6 +16,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: baseline;
+        background-color: #111213;
         box-shadow: #2f71e8 0px 1px 3px;
     }
     
@@ -34,9 +41,13 @@
     
     .bottom-nav {
         position: fixed;
-        bottom: 00px;
+        bottom: 0px;
         left: 0;
         width: 100vw;
+        box-sizing: border-box;
+        height: 64px;
+        padding: 12px;
+        background-color: #111213;
     }
 
     .bottom-nav ul {
@@ -45,6 +56,7 @@
         justify-content: space-around;
         align-items: baseline;
         padding-inline-start: 0;
+        margin-block-start: 0;
     }
 
     .bottom-nav ul li {

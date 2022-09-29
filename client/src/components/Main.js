@@ -21,7 +21,10 @@ function Main() {
                 return (
                     <PracticeApp />
                 )
-            case "entries": return <EditEntries onNew={handleNew} />;
+            case "entries": 
+                return (
+                    <EditEntries onNew={handleNew} />
+                )
             case "add": return <AddEntries />;
             default: return <p>404 missing page</p>
         }

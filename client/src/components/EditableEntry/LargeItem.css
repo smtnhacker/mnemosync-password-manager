@@ -1,0 +1,20 @@
+p, label {
+    margin: 2px;
+    font-size: 15px;
+    text-align: left;
+}
+
+.username {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.view-container button:hover, .edit-container button:hover {
+    cursor: pointer;
+    border-color: #01BAEF;
+}
+
+.view-container, .edit-container {
+    margin: 16px;
+    max-width: 500px;
+}

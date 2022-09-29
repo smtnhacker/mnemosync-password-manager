@@ -1,21 +1,13 @@
 import axios from 'axios'
 import styled from "styled-components"
 import React, { useState, useEffect } from 'react'
+import MediaQuery from 'react-responsive'
 
 import API_ENDPOINT from '../config'
 
 import { THEME } from '../constants'
-import EditableEntry from './EditableEntry'
-
-const Container = styled.div`
-    text-align: left;
-    background-color: rgba(0,0,0,0.1);
-    padding: 10px 100px;
-    width: 70%;
-    min-height: 300px;
-    max-height: 500px;
-    overflow-y: overlay;
-`
+import LargeEntriesView from './EntriesView/LargeEntriesView'
+import SmallEntriesView from './EntriesView/SmallEntriesView'
 
 const Button = styled.button`
     background-color: ${THEME.PRIMARY};
@@ -78,38 +70,22 @@ function EditEntries({ onNew }) {
     if (loading) return <div>Loading...</div>
     else if (error) return <div>An error occurred :(</div>
 
+    const entriesViewProps = {
+        entries: entries,
+        onDelete: handleDelete,
+        onChange: handleEntryChange
+    }
+
     return (
         <>
-            <Container>
-                {
-                entries.length > 0?
-                entries.map(entry => {
-                    return (
-                        <React.Fragment key={entry.entry_id}>
-                            <EditableEntry
-                                onDelete={handleDelete}
-                                entry_id={entry.entry_id}
-                                sitename={entry.sitename}
-                                username={entry.username}
-                                passhash={entry.passhash}
-                                key_info={{
-                                    salt: entry.salt,
-                                    iv: entry.iv,
-                                    authTag: entry.authtag
-                                }}
-                                salt={entry.salt}
-                                iv={entry.iv}
-                                saltID={entry.salt_id}
-                                onUpdate={(newEntry) => handleEntryChange(entry.entry_id, newEntry)}
-                            />
-                            <hr />
-                        </React.Fragment>
-                    )
-                }) : 
-                "There are no passwords yet. You can create some by pressing the + button at the right."
-                }
-            </Container>
-            <Button onClick={onNew}>+</Button>
+            <MediaQuery minWidth={650}>
+                <LargeEntriesView {...entriesViewProps} />
+                <Button onClick={onNew}>+</Button>
+            </MediaQuery>
+            <MediaQuery maxWidth={649}>
+                <SmallEntriesView {...entriesViewProps} />
+                <Button onClick={onNew}>+</Button>
+            </MediaQuery>
         </>
     )
 }

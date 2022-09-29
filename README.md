@@ -3,9 +3,13 @@ A Password manager that uses spaced repetition to help users remember their pass
 
 _Note: Might not help for systems that uses stuff like  2FA._
 
-### Some Introduction
+### Introduction
 
-This was made for a PERN workshop, at work. It is ~~still far from~~ currently somewhat working, but to be honest, I'm not sure if its being done right. In particular, for a password manager, its security ~~is _still_~~ _might_ horrible ~~(does not even encrypt passwords yet)~~.
+This was made for a PERN workshop, at work. It is currently working, but since it needs a database to work and free databases often have limiting restrictions, it currently cannot be used on the long run. Also, I haven't set-up TLS or a handshake protocol yet so avoid sending sensitive data over an unsecured network.
+
+### Live Page
+
+[You can visit the live page here](https://mnemosync.onrender.com/)
 
 ### Images
 
@@ -66,3 +70,9 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 ### Contribution
 
 Since this is a practice project, I _might_ accept criticisms. But since this is **just** a practice project, I might not continue working on this so to save you the trouble, I won't be accepting contributions.
+
+### Support
+
+If you enjoyed this and want to support it financially (so that I can finally move it to a non-free tier plan and give it a proper database), you can donate through the links below (once I set them up)!
+
+_Insert donation links here_

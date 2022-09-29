@@ -1,9 +1,7 @@
 import axios from 'axios'
 import styled from "styled-components"
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 
-import { decrypt } from '../util/security'
-import authContext from '../util/authContext'
 import API_ENDPOINT from '../config'
 
 import { THEME } from '../constants'
@@ -41,24 +39,11 @@ function EditEntries({ onNew }) {
     const [error, setError] = useState(false);
     const [entries, setEntries] = useState([]);
     const [hasDelete, setHasDelete] = useState(false);
-    const auth = useContext(authContext);
 
     useEffect(() => {
         setLoading(true);
         axios.get(`${API_ENDPOINT}/api/entry/list`, {withCredentials: true})
             .then(res => {
-                // res.data.forEach((entry) => { 
-                //     const curEntry = {
-                //         ...entry, 
-                //         password: decrypt(
-                //             entry.passhash, 
-                //             auth.key,
-                //             entry.salt,
-                //             entry.iv,
-                //             entry.authtag)
-                //         }
-                //     setEntries(prev => [...prev, curEntry])
-                // })
                 setEntries(res.data);
                 setLoading(false);
             })

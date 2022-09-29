@@ -1,8 +1,7 @@
 import {
-    pbkdf2Sync,
+    pbkdf2,
     createCipheriv,
     createDecipheriv,
-    createHash,
     randomBytes
 } from 'crypto'
 
@@ -17,9 +16,16 @@ const genSalt = () => {
     return randomBytes(12).toString('hex');
 }
 
-const encrypt = (plainText, password, _salt, _iv) => {
+const genKey = async (password, salt) => {
+    const key = (await new Promise((resolve) => {
+        pbkdf2(password, salt, 100000, 16, 'sha512', (err, res) => resolve(res))
+    })).toString("hex");
+    return key
+}
+
+const encrypt = async (plainText, password, _salt, _iv) => {
     const salt = _salt ?? genSalt();
-    const key = pbkdf2Sync(password, salt, 100000, 16, 'sha512').toString("hex");
+    const key = await genKey(password, salt);
     const iv = _iv ?? genIV();
     const cipher = createCipheriv(ALGORITHM, key, iv);
 
@@ -45,8 +51,8 @@ const encrypt = (plainText, password, _salt, _iv) => {
     };
 }
 
-const decrypt = (encryptedText, password, salt, iv, authTag) => {
-    const key = pbkdf2Sync(password, salt, 100000, 16, 'sha512').toString("hex");
+const decrypt = async (encryptedText, password, salt, iv, authTag) => {
+    const key = await genKey(password, salt);
     const decipher = createDecipheriv(ALGORITHM, key, iv);
 
     console.dir({

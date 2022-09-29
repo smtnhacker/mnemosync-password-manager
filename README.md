@@ -51,7 +51,7 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [ ] Add some tests (maybe?)
 
-- [ ] Offload encryption/decryption to Web Workers
+- [X] ~~Offload encryption/decryption to Web Workers~~ Async suffices _for now_
 
 - [x] Protect the routes and add CSRF tokens
 

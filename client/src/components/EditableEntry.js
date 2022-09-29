@@ -41,20 +41,21 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
         if (mode === 1 && !password) {
             setLoading(true);
             setTimeout(() => {
-                try {
-                    const decoded = decrypt(passhash, auth.key, key_info.salt, key_info.iv, key_info.authTag);
-                    setPassword(decoded);
-                    setLoading(false);
-                } catch (err) {
-                    setLoading(false);
-                    setError(true);
-                }
+                decrypt(passhash, auth.key, key_info.salt, key_info.iv, key_info.authTag)
+                    .then(decoded => {
+                        setPassword(decoded);
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        setLoading(false);
+                        setError(true);
+                    })
             }, 300);
         }
     }, [mode, auth.key])
 
     const handleEdit = e => {
-        console.log('Clicked edit!')
         setMode(1);
     }
 
@@ -64,7 +65,7 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
         onDelete(entry_id)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!e.target.password.value &&
@@ -73,11 +74,11 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
                 console.log("Nothing changed...");
                 setMode(0);
                 return;
-            }
+        }
 
         try {
             const { encrypted, authTag } = e.target.password.value ? 
-                                            encrypt(e.target.password.value, auth.key, salt, iv) : 
+                                            await encrypt(e.target.password.value, auth.key, salt, iv) : 
                                             { encrypted: '', authTag: null }
             
             const newEntry = {}
@@ -103,7 +104,6 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
             if (e.target.password.value) {
                 setPassword(e.target.password.value)
             }
-            // should also update the currently shown entries
 
         } catch (err) {
             console.log(err)
@@ -118,7 +118,6 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
             <div className='view-container'>
                 <p title="Site"><span className="sitename">{sitename}</span></p>
                 <p title="Username"><span className="username">{username}</span></p>
-                {/* <p>Password: {password}</p> */}
                 <TinyPrimaryButton onClick={handleEdit}>Edit</TinyPrimaryButton>
                 <TinySecondaryButton onClick={handleDelete}>Delete</TinySecondaryButton>
             </div>

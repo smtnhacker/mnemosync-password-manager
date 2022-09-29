@@ -13,9 +13,9 @@ function App() {
   return (
     <div className="App">
       <NavBar logged={userID ? true : false} />
-      <header className="App-header">
+      <div className="App-body">
         <Outlet />
-      </header>
+      </div>
       <Footer />      
     </div>
   );

@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 
 import userContext from '../util/userContext'
 import authContext from '../util/authContext'
+
 import './styles/NavBar.css'
 import { THEME } from '../constants'
 
@@ -44,7 +44,7 @@ const NavBar = ({ logged }) => {
     }
 
     return (
-        <div className="container">
+        <nav className="container">
             <div className="upper-nav">
                 <div className="logo" onClick={()=>navigate("/")}>mnemosync</div>
                 <div className="utils">
@@ -66,7 +66,7 @@ const NavBar = ({ logged }) => {
                     </ul>
                 </div>
             }
-        </div>
+        </nav>
     )
 }
 

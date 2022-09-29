@@ -1,18 +1,19 @@
 .App {
+  position: relative;
   text-align: center;
   overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #111213;
   color: #FBFBFF;
   font-size: calc(10px + 2vmin);
 }
 
-.App-header {
-  min-height: 80vh;
-  max-height: 83vh;
+.App-body {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  justify-content: center;
+  min-height: 500px;
+  max-height: 100%;
 }
 
 *::-webkit-scrollbar, *::-webkit-scrollbar {

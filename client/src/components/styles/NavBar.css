@@ -33,7 +33,6 @@
 .upper-nav {
     justify-content: space-between;
     align-items: center;
-    /* background-color: #292F36; */
     height: 64px;
     padding: 0 16px 0 32px;
     box-shadow: #2f71e8 0px 1px 3px;
@@ -45,6 +44,12 @@
     top: -2px;
 }
 
+.lower-nav ul {
+    display: flex;
+    flex-direction: row;
+    margin: 3px 0px;
+}
+
 .lower-nav li {
     border: 1px solid rgba(0,0,0,0);
     border-radius: 0px 0px 10px 10px;
@@ -53,10 +58,4 @@
 .lower-nav li:hover {
     border: 1px solid #2f71e8;
     color: white !important;
-}
-
-.lower-nav ul {
-    display: flex;
-    flex-direction: row;
-    margin: 3px 0px;
 }

@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
 const Wrapper = styled.footer`
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 48px;
+    bottom: 0;
     font-size: 12px;
 `
 

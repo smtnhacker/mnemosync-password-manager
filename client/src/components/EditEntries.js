@@ -2,12 +2,14 @@ import axios from 'axios'
 import styled from "styled-components"
 import React, { useState, useEffect } from 'react'
 import MediaQuery from 'react-responsive'
+import { IoAddSharp } from 'react-icons/io5'
 
 import API_ENDPOINT from '../config'
 
 import { THEME } from '../constants'
 import LargeEntriesView from './EntriesView/LargeEntriesView'
 import SmallEntriesView from './EntriesView/SmallEntriesView'
+import CTAButton from './atoms/CTAButton'
 
 const Button = styled.button`
     background-color: ${THEME.PRIMARY};
@@ -84,7 +86,9 @@ function EditEntries({ onNew }) {
             </MediaQuery>
             <MediaQuery maxWidth={649}>
                 <SmallEntriesView {...entriesViewProps} />
-                <Button onClick={onNew}>+</Button>
+                <CTAButton onClick={onNew}>
+                    <IoAddSharp size="2.5em" />
+                </CTAButton>
             </MediaQuery>
         </>
     )

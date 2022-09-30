@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 
 import API_ENDPOINT from '../config'
+import { THEME } from '../constants'
 
 const Stats = props => {
     const [entryCount, setEntryCount] = useState()
@@ -13,7 +14,7 @@ const Stats = props => {
 
     return (
         <div>
-            Welcome! You have {entryCount} password/s to practice today.
+            <h1>Welcome!</h1>You have <span style={{ color: THEME.PRIMARY }}>{entryCount}</span> password{parseInt(entryCount) > 1 && 's'} to practice today.
         </div>
     )
 }

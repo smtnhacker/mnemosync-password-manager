@@ -243,6 +243,7 @@ router.delete('/:entryID', async (req, res, next) => {
             values: [entry_detail_id]
         };
         await db.query(query);
+        res.send("Deleted")
     } catch(error) {
         return next(error);
     }

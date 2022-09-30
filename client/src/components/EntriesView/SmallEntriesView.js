@@ -6,6 +6,10 @@ import EditableEntry from "../EditableEntry/EditableEntry"
 const Container = styled.div`
     position: relative;
     padding: 12px 12px;
+    margin-top: 64px;
+    width: 100%;
+    max-height: calc(100vh - 128px);
+    overflow-y: auto;
     z-index: 0;
 `
 

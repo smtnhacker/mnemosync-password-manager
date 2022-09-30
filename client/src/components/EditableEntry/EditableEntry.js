@@ -42,8 +42,14 @@ function EditableEntry({ onDelete, entry_id, sitename, username, passhash, key_i
 
     const handleDelete = e => {
         axios.delete(`${API_ENDPOINT}/api/entry/${entry_id}`, { withCredentials: true })
-            .then(() => console.log('Deleted!'))
-        onDelete(entry_id)
+            .then(() => {
+                console.log('Deleted!')
+                onDelete(entry_id)
+            })
+            .catch(err => {
+                alert("Something went wrong!")
+                console.log(err.response.data)
+            })
     }
 
     const handleSubmit = async (e) => {

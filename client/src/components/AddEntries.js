@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { encrypt } from "../util/security"
@@ -14,6 +14,11 @@ function AddEntries() {
     const navigate = useNavigate()
     const auth = useContext(authContext)
     const [status, setStatus] = useState('')
+    const inputRef = useRef()
+
+    useEffect(() => {
+        inputRef.current.focus()
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,8 +40,8 @@ function AddEntries() {
                 salt: salt
             }, { withCredentials: true });
 
-            console.dir(res.data);
-            if (res.statusText === 'OK') {
+            console.dir(res)
+            if (res.status === 200) {
                 setStatus('Created entry')
                 e.target.reset();
             } else {
@@ -71,8 +76,10 @@ function AddEntries() {
                         name="sitename" 
                         placeholder="Site"
                         required
+                        ref={inputRef}
                     />
                 </div>
+                <input type="password" style={{display: "none"}} />
                 <div className="form-entry">
                     <label hidden>Username: </label>
                     <TextInput 
@@ -90,6 +97,7 @@ function AddEntries() {
                         id="password" 
                         name="password" 
                         placeholder="Password" 
+                        minLength={4}
                         required
                     />
                 </div>

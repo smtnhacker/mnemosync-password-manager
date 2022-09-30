@@ -2,12 +2,14 @@ import axios from 'axios'
 import styled from "styled-components"
 import React, { useState, useEffect } from 'react'
 import MediaQuery from 'react-responsive'
+import { IoAddSharp } from 'react-icons/io5'
 
 import API_ENDPOINT from '../config'
 
 import { THEME } from '../constants'
 import LargeEntriesView from './EntriesView/LargeEntriesView'
 import SmallEntriesView from './EntriesView/SmallEntriesView'
+import CTAButton from './atoms/CTAButton'
 
 const Button = styled.button`
     background-color: ${THEME.PRIMARY};
@@ -30,7 +32,6 @@ function EditEntries({ onNew }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [entries, setEntries] = useState([]);
-    const [hasDelete, setHasDelete] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -44,12 +45,13 @@ function EditEntries({ onNew }) {
                 setError(true);
                 setLoading(false);
             })
-    }, [hasDelete]);
+    }, []);
 
     useEffect(() => console.log('Got entries:', entries), [entries])
 
     const handleDelete = entry_id => {
-        setHasDelete(entry_id)
+        console.log("should delete", entry_id)
+        setEntries(prev => prev.filter(entry => entry.entry_id !== entry_id))
     }
 
     const handleEntryChange = (entry_id, newEntry) => {
@@ -84,7 +86,9 @@ function EditEntries({ onNew }) {
             </MediaQuery>
             <MediaQuery maxWidth={649}>
                 <SmallEntriesView {...entriesViewProps} />
-                <Button onClick={onNew}>+</Button>
+                <CTAButton onClick={onNew}>
+                    <IoAddSharp size="2.5em" />
+                </CTAButton>
             </MediaQuery>
         </>
     )

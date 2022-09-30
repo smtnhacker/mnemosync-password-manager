@@ -1,4 +1,8 @@
 @media screen and (min-width: 650px) {
+    .large-container button  {
+        font-weight: bold;
+    }
+
     .large-container {
         display: flex;
         flex-direction: column;

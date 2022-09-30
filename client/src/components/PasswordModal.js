@@ -8,8 +8,7 @@ import Label from "./atoms/Label"
 
 const Modal = styled.div`
     box-sizing: border-box;
-    position: absolute;
-    margin: 30px 40px;
+    margin: 36px 12px;
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -37,12 +36,18 @@ const PasswordModal = ({ onSubmit }) => {
 
     return (
         <Modal>
-            <div style={{ marginBottom: "50px" }}>
-                Oops! The page was refreshed and the key dropped somewhere. For your safety, we only keep a hashed copy of your key to use in login verification. The actual key used in encryption and decryption, by default, is not stored. If you trust us in saving your key, you can modify it in the settings (once implemented). But for now, in order to encrypt and decrypt passwords. can you enter your key again?
+            <div style={{ 
+                marginBottom: "12px",
+                maxWidth: "1000px"
+            }}>
+                <h3>Oops! Key was droppped....</h3>
+                <p style={{ fontSize: "0.85em" }}>
+                    The page was refreshed and the key dropped somewhere. For your safety, we only keep a hashed copy of your key to use in login verification. The actual key used in encryption and decryption, by default, is not stored. If you trust us in saving your key, you can modify it in the settings (once implemented). But for now, in order to encrypt and decrypt passwords. can you enter your key again?
+                </p>
             </div>
             <form onSubmit={handleSubmit} style={{display: "flex"}}>
                 <FormGroup center>
-                    <Label>Password</Label>
+                    <Label hidden>Password</Label>
                     <TextInput 
                         type="password" 
                         name="password" 

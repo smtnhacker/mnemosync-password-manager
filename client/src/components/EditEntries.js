@@ -32,7 +32,6 @@ function EditEntries({ onNew }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [entries, setEntries] = useState([]);
-    const [hasDelete, setHasDelete] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -46,12 +45,13 @@ function EditEntries({ onNew }) {
                 setError(true);
                 setLoading(false);
             })
-    }, [hasDelete]);
+    }, []);
 
     useEffect(() => console.log('Got entries:', entries), [entries])
 
     const handleDelete = entry_id => {
-        setHasDelete(entry_id)
+        console.log("should delete", entry_id)
+        setEntries(prev => prev.filter(entry => entry.entry_id !== entry_id))
     }
 
     const handleEntryChange = (entry_id, newEntry) => {

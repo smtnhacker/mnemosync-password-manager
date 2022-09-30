@@ -36,13 +36,10 @@ function AddEntries() {
             }, { withCredentials: true });
 
             console.dir(res)
-            console.dir(res.data);
-            console.log("res status", res.statusText)
-            if (res.statusText === 'OK') {
+            if (res.status === 200) {
                 setStatus('Created entry')
                 e.target.reset();
             } else {
-                console.log("smoke test, something went wrong")
                 setStatus('Something went wrong')
             }
 

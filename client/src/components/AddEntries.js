@@ -24,7 +24,7 @@ function AddEntries() {
         e.preventDefault();
         const sitename = e.target.sitename.value;
         const username = e.target.username.value;
-        const plainPassword = e.target._password.value;
+        const plainPassword = e.target.password.value;
         const { encrypted, authTag, iv, salt } = await encrypt(plainPassword, auth.key);
         const password = encrypted; 
         
@@ -79,6 +79,7 @@ function AddEntries() {
                         ref={inputRef}
                     />
                 </div>
+                <input type="password" style={{display: "none"}} />
                 <div className="form-entry">
                     <label hidden>Username: </label>
                     <TextInput 
@@ -94,7 +95,7 @@ function AddEntries() {
                     <TextInput 
                         type="password" 
                         id="password" 
-                        name="_password" 
+                        name="password" 
                         placeholder="Password" 
                         minLength={4}
                         required

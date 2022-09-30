@@ -70,7 +70,11 @@ function PracticeApp() {
     if (loading) return <div>Fetching passwords...</div>
     else if (decodeError) return <div>Cannot decode password using given key. If the key is wrong, please refresh the page to reenter key.</div>
     else if (error) return <div>Something went wrong :(</div>
-    else if(entries.length === 0) return <div>Finished practice!</div>
+    else if(entries.length === 0) return (
+        <>
+            <h1>Finished practice!</h1>
+        </>
+    )
 
     const handleSubmit = async (e) => {
         e.preventDefault();

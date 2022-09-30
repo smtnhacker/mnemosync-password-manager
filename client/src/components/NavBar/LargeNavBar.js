@@ -1,6 +1,15 @@
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
+import { IconContext } from 'react-icons'
+import { 
+    IoHomeSharp, 
+    IoAppsSharp, 
+    IoKeySharp,
+    IoExitSharp,
+    IoLogInSharp
+} from 'react-icons/io5'
+import { FaUserPlus } from 'react-icons/fa'
 
 import userContext from '../../util/userContext'
 import authContext from '../../util/authContext'
@@ -49,10 +58,16 @@ const LargeNavBar = ({ logged }) => {
                 <div className="logo" onClick={()=>navigate("/")}>mnemosync</div>
                 <div className="utils">
                     {logged ? 
-                        <NavButton onClick={handleLogout}>logout</NavButton> : 
+                        <NavButton onClick={handleLogout}>
+                            Logout <IoExitSharp />
+                        </NavButton> : 
                         <>
-                            <NavButton onClick={()=>navigate("/login")}>login</NavButton>
-                            <NavButton onClick={()=>navigate("/signup")}>signup</NavButton>
+                            <NavButton onClick={()=>navigate("/login")}>
+                                Login <IoLogInSharp />
+                            </NavButton>
+                            <NavButton onClick={()=>navigate("/signup")}>
+                                Sign-Up  <FaUserPlus />
+                            </NavButton>
                         </>}
                 </div>
             </div>
@@ -60,9 +75,15 @@ const LargeNavBar = ({ logged }) => {
                 logged && 
                 <div className="lower-nav">
                     <ul>
-                        <li><NavButton onClick={()=>navigate("/home/")}>dashboard</NavButton></li>
-                        <li><NavButton onClick={()=>navigate("/home/practice")}>practice</NavButton></li>
-                        <li><NavButton onClick={()=>navigate("/home/entries")}>entries</NavButton></li>
+                        <li><NavButton onClick={()=>navigate("/home/")}>
+                            <IoHomeSharp /> Dashboard 
+                        </NavButton></li>
+                        <li><NavButton onClick={()=>navigate("/home/practice")}>
+                            <IoKeySharp /> Practice
+                        </NavButton></li>
+                        <li><NavButton onClick={()=>navigate("/home/entries")}>
+                            <IoAppsSharp /> Entries
+                        </NavButton></li>
                     </ul>
                 </div>
             }

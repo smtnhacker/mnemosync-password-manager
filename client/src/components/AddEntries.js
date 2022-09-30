@@ -40,6 +40,7 @@ function AddEntries() {
                 setStatus('Created entry')
                 e.target.reset();
             } else {
+                console.log("res status", res.statusText)
                 setStatus('Something went wrong')
             }
 

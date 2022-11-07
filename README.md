@@ -1,15 +1,11 @@
 # mnemosync
 A Password manager that uses spaced repetition to help users remember their passwords even after D-Day.
 
-_Note: Might not help for systems that uses stuff like  2FA._
+_Note: Might not help for systems that uses stuff like 2FA._
 
-### Introduction
+## Demo
 
-This was made for a PERN workshop, at work. It is currently working, but since it needs a database to work and free databases often have limiting restrictions, it currently cannot be used on the long run. Also, I haven't set-up TLS or a handshake protocol yet so avoid sending sensitive data over an unsecured network.
-
-### Live Page
-
-[You can visit the live page here](https://mnemosync.onrender.com/)
+![Demo](https://github.com/smtnhacker/mnemosync-password-manager/blob/main/doc/sample_usage.gif)
 
 ### Images
 
@@ -17,7 +13,19 @@ This was made for a PERN workshop, at work. It is currently working, but since i
 
 ![Practice Sample](https://github.com/smtnhacker/mnemosync-password-manager/blob/main/doc/practice_page.PNG?raw=true)
 
-### Testing
+## Introduction
+
+This was made for a PERN workshop, at work. I tried to practice the entire stack, with heavy emphasis on the backend and security. However, due to the subtle nature of security, I wouldn't consider this app production-ready. Although, I did try to incorporate the necessary security to ensure that even if there is a middle-man or if the database is compromised, decrypting the passwords will still take a lifetime, by then you should have already changed passwords. Furthermore, the app also tries to protect itself against oracle attacks by delegating the decryption to the client, for the price of performance. This is in line with the goal of SRS since its ultimate goal is the non-use of the app in the first place (due to memorization)! Of course, the app uses CSRF and has mechanisms against XSS.
+
+### How the project is structured
+
+The project has 2 parts: the client side which is built using React, and the server side which is built using ExpressJS. Both contain code on security (primarily found in their respective `util/security.js` file).
+
+### Possible Improvements
+
+Currently, the app relies on TLS in order to _completely_ defend itself against man-in-the-middle attacks, but it can be improved by creating a secure channel using the key exchanged in the Diffie Hellman Key Exchange algorithm (found in `hooks/useHandshake.js` for the client side and `routs\api\security.js` in the server side). Encryption can be further strengthened by adding an additional 4-digit pin to generate a local pepper for **each** user. It should also be used as a password to confirm entry modification (in case the user hardware was compromised by a snooping person!)
+
+## Testing
 
 1. Using the terminal, go to the root directory.
 
@@ -37,7 +45,7 @@ This was made for a PERN workshop, at work. It is currently working, but since i
 
 9. The React App should open automatically, but you can access it through `http://localhost:3000/`.
 
-### TO-DO
+## TO-DO
 
 Here are some pretty _urgent_ to-do's that I still plan to work on (before putting the project back to the closet). Yeah, this thing is in its very early phases.
 
@@ -67,12 +75,12 @@ Here are some pretty _urgent_ to-do's that I still plan to work on (before putti
 
 - [ ] Improve logging
 
-### Contribution
+## Contribution
 
 Since this is a practice project, I _might_ accept criticisms. But since this is **just** a practice project, I might not continue working on this so to save you the trouble, I won't be accepting contributions.
 
-### Support
+## Support
 
-If you enjoyed this and want to support it financially (so that I can finally move it to a non-free tier plan and give it a proper database), you can donate through the links below (once I set them up)!
+If you enjoyed this and want to support it financially (so that I can finally deploy it using a non-free tier plan, give it a proper database, and make it available to the non-tech savvy public), you can donate through the links below (once I set them up)!
 
 _Insert donation links here_
